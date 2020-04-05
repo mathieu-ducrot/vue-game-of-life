@@ -1,0 +1,13 @@
+/* https://bulma.io/documentation/customize/variables/ */
+
+// utilities : initial-variables
+$red: #d6001c;
+
+// base : generic
+$body-background-color: $default-background-color;
+$body-color: $default-text-color;
+$strong-color: $default-text-color;
+
+// elements : title
+$title-color: darken($default-text-color, 10);
+$subtitle-color: $default-text-color;

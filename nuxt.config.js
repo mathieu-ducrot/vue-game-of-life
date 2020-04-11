@@ -14,16 +14,17 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [{ src: 'https://use.fontawesome.com/releases/v5.3.1/js/all.js' }]
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#2e334a' },
   /*
    ** Global CSS
    */
-  css: [],
+  css: [{ src: '~/assets/scss/main.scss', lang: 'scss' }],
   /*
    ** Plugins to load before mounting the App
    */
@@ -40,7 +41,7 @@ export default {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    '@nuxtjs/bulma'
+    // '@nuxtjs/bulma'
   ],
   /*
    ** Build configuration

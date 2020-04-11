@@ -1,68 +1,48 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        game-of-life
-      </h1>
-      <h2 class="subtitle">
-        My attempt for creating the game of life from John Conway with Vue.js
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="title is-1 is-spaced is-uppercase">
+          <span class="has-text-primary">
+            <i class="fas fa-th"></i>
+          </span>
+          <span>Conway's Game of Life</span>
+        </div>
+        <p class="subtitle">
+          A <strong class="has-text-primary">VueJS</strong> implementation of
+          the Game of life cellular automaton
+        </p>
       </div>
     </div>
-  </div>
+    <div class="hero-foot">
+      <footer-app />
+    </div>
+  </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+// todo check to put the FooterApp on the default layout and still being fixed at the bottom
+import FooterApp from '@/components/layouts/FooterApp'
 
 export default {
   components: {
-    Logo
+    FooterApp
   }
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+<style lang="scss">
+html {
+  /* Hide the useless scrollbar */
+  overflow-y: auto;
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  font-family: 'IBM Plex Serif', 'Helvetica', serif;
+  font-weight: inherit;
+  span:last-child {
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+  }
 }
 </style>

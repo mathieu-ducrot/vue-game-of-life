@@ -1,11 +1,24 @@
 <template>
   <section class="section">
     <div class="container">
-      <h1 class="title">The Game Page</h1>
-      <h2 class="subtitle">
-        A simple container to divide your page into <strong>sections</strong>,
-        like the one you're currently reading
-      </h2>
+      <div class="box is-radiusless">
+        <game-grid :cells-per-row="cellsPerRow"></game-grid>
+      </div>
     </div>
   </section>
 </template>
+
+<script>
+import GameGrid from '@/components/game/GameGrid'
+
+export default {
+  components: {
+    GameGrid
+  },
+  data() {
+    return {
+      cellsPerRow: 40
+    }
+  }
+}
+</script>

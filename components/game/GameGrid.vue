@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'GameGrid',
   props: {
@@ -22,6 +24,8 @@ export default {
   },
   data() {
     return {
+      livingCellFillStyle: '#82ded2',
+      deadCellFillStyle: '#fff',
       cellResolution: 40 // todo add a watch function and change the cellResolution based on the window resolution
     }
   },
@@ -31,21 +35,27 @@ export default {
     },
     gridHeight() {
       return this.cellsPerColumn * this.cellResolution
-    }
+    },
+    ...mapState({
+      cellsGrid: (state) => state['cells-grid']
+    })
   },
   mounted() {
-    const canvas = this.$refs['game-grid']
-
-    if (canvas.getContext) {
-      this.drawEmptyGrid(canvas.getContext('2d'))
-    } else {
-      // todo case when canvas is not supported
-    }
+    this.$store.dispatch('cells-grid/initGridState', {
+      cellsPerRow: this.cellsPerRow,
+      cellsPerColumn: this.cellsPerColumn
+    })
+    this.randomizeGridState()
   },
   methods: {
-    drawEmptyGrid(ctx) {
+    randomizeGridState() {
+      this.$store.dispatch('cells-grid/randomizeGridState')
+
+      this.drawCellsGrid()
+    },
+    drawCellsGrid(ctx) {
       window.console.log('drawing process')
-      ctx.fillStyle = '#82ded2'
+      ctx = this.getCanvasContext()
 
       for (let x = 0; x < this.cellsPerRow; x++) {
         for (let y = 0; y < this.cellsPerColumn; y++) {
@@ -55,16 +65,33 @@ export default {
             this.cellResolution,
             this.cellResolution
           )
-          // Temp test to fill the grid
-          if ((x % 3 === 0 && y % 2 === 1) || (x % 2 === 1 && y % 4 === 0)) {
-            ctx.fillRect(
-              x * this.cellResolution + 1,
-              y * this.cellResolution + 1,
-              this.cellResolution - 1,
-              this.cellResolution - 1
-            )
+
+          // Draw a living cell base on the cells grid current state
+          if (
+            typeof this.cellsGrid.currentGridState[x] !== 'undefined' &&
+            typeof this.cellsGrid.currentGridState[x][y] !== 'undefined' &&
+            this.cellsGrid.currentGridState[x][y]
+          ) {
+            ctx.fillStyle = this.livingCellFillStyle
+          } else {
+            ctx.fillStyle = this.deadCellFillStyle
           }
+
+          ctx.fillRect(
+            x * this.cellResolution + 1,
+            y * this.cellResolution + 1,
+            this.cellResolution - 1,
+            this.cellResolution - 1
+          )
         }
+      }
+    },
+    getCanvasContext() {
+      const canvas = this.$refs['game-grid']
+      if (canvas.getContext) {
+        return canvas.getContext('2d')
+      } else {
+        // todo case when canvas is not supported
       }
     }
   }

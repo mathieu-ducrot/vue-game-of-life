@@ -31,7 +31,11 @@ export default {
   },
   methods: {
     randomizeState() {
-      this.$refs.gameGrid.randomizeGridState()
+      const timerId = setInterval(
+        () => this.$refs.gameGrid.randomizeGridState(),
+        300
+      )
+      window.console.log(timerId)
     }
   }
 }

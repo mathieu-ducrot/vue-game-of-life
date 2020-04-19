@@ -36,6 +36,15 @@ export default {
     gridHeight() {
       return this.cellsPerColumn * this.cellResolution
     },
+    canvasContext() {
+      const canvas = this.$refs['game-grid']
+      if (canvas.getContext) {
+        return canvas.getContext('2d')
+      } else {
+        // todo case when canvas is not supported
+        return false
+      }
+    },
     ...mapState({
       cellsGrid: (state) => state['cells-grid']
     })
@@ -46,20 +55,20 @@ export default {
       cellsPerColumn: this.cellsPerColumn
     })
     this.randomizeGridState()
+    this.drawCellsGrid()
   },
   methods: {
     randomizeGridState() {
+      window.console.log('randomize state')
       this.$store.dispatch('cells-grid/randomizeGridState')
-
-      this.drawCellsGrid()
     },
-    drawCellsGrid(ctx) {
+    drawCellsGrid() {
       window.console.log('drawing process')
-      ctx = this.getCanvasContext()
+      this.canvasContext.clearRect(0, 0, this.gridWidth, this.gridHeight)
 
       for (let x = 0; x < this.cellsPerRow; x++) {
         for (let y = 0; y < this.cellsPerColumn; y++) {
-          ctx.strokeRect(
+          this.canvasContext.strokeRect(
             x * this.cellResolution,
             y * this.cellResolution,
             this.cellResolution,
@@ -72,12 +81,12 @@ export default {
             typeof this.cellsGrid.currentGridState[x][y] !== 'undefined' &&
             this.cellsGrid.currentGridState[x][y]
           ) {
-            ctx.fillStyle = this.livingCellFillStyle
+            this.canvasContext.fillStyle = this.livingCellFillStyle
           } else {
-            ctx.fillStyle = this.deadCellFillStyle
+            this.canvasContext.fillStyle = this.deadCellFillStyle
           }
 
-          ctx.fillRect(
+          this.canvasContext.fillRect(
             x * this.cellResolution + 1,
             y * this.cellResolution + 1,
             this.cellResolution - 1,
@@ -85,14 +94,8 @@ export default {
           )
         }
       }
-    },
-    getCanvasContext() {
-      const canvas = this.$refs['game-grid']
-      if (canvas.getContext) {
-        return canvas.getContext('2d')
-      } else {
-        // todo case when canvas is not supported
-      }
+
+      window.requestAnimationFrame(this.drawCellsGrid)
     }
   }
 }

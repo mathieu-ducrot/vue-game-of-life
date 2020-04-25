@@ -31,5 +31,11 @@ export const actions = {
         state.cellsPerColumn
       )
     )
+  },
+  nextGridState({ commit, state }) {
+    commit(
+      'SET_CURRENT_GRID_STATE',
+      CellsGridGenerationService.getNextGridGeneration(state.currentGridState)
+    )
   }
 }

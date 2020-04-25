@@ -19,14 +19,14 @@ export default {
     },
     cellsPerColumn: {
       type: Number,
-      default: 20
+      default: 30
     }
   },
   data() {
     return {
       livingCellFillStyle: '#82ded2',
       deadCellFillStyle: '#fff',
-      cellResolution: 40 // todo add a watch function and change the cellResolution based on the window resolution
+      cellResolution: 30 // todo add a watch function and change the cellResolution based on the window resolution
     }
   },
   computed: {
@@ -58,6 +58,15 @@ export default {
     this.drawCellsGrid()
   },
   methods: {
+    launchGridEvolution() {
+      window.console.log('launch evolution')
+      const timerId = setInterval(() => this.nextGridState(), 300)
+      window.console.log(timerId)
+    },
+    nextGridState() {
+      window.console.log('next grid state')
+      this.$store.dispatch('cells-grid/nextGridState')
+    },
     randomizeGridState() {
       window.console.log('randomize state')
       this.$store.dispatch('cells-grid/randomizeGridState')
@@ -76,11 +85,7 @@ export default {
           )
 
           // Draw a living cell base on the cells grid current state
-          if (
-            typeof this.cellsGrid.currentGridState[x] !== 'undefined' &&
-            typeof this.cellsGrid.currentGridState[x][y] !== 'undefined' &&
-            this.cellsGrid.currentGridState[x][y]
-          ) {
+          if (this.cellsGrid.currentGridState[x][y]) {
             this.canvasContext.fillStyle = this.livingCellFillStyle
           } else {
             this.canvasContext.fillStyle = this.deadCellFillStyle

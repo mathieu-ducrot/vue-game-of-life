@@ -1,6 +1,6 @@
 <template>
   <div class="control-panel has-background-white">
-    Speed Level : {{ speedOptions[currentSpeed].name }}
+    <b>Speed Level</b> : {{ speedOptions[currentSpeed].name }}
     <div class="buttons is-centered has-addons is-marginless">
       <button
         class="button is-primary"
@@ -22,6 +22,13 @@
           <i class="far fa-stop-circle fa-lg"></i>
         </span>
         <span>Stop</span>
+      </button>
+
+      <button class="button is-info is-outlined" @click="nextGridEvolution()">
+        <span class="icon">
+          <i class="fas fa-step-forward"></i>
+        </span>
+        <span>Next</span>
       </button>
 
       <button
@@ -129,6 +136,10 @@ export default {
       window.console.log('stop evolution')
       this.runningEvolution = false
       clearTimeout(this.timerId)
+    },
+    nextGridEvolution() {
+      this.stopGridEvolution()
+      this.nextGridState()
     },
     nextGridState() {
       window.console.log('next grid state')

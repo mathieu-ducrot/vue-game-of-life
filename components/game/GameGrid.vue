@@ -26,7 +26,7 @@ export default {
     return {
       livingCellFillStyle: '#82ded2',
       deadCellFillStyle: '#fff',
-      cellResolution: 30 // todo add a watch function and change the cellResolution based on the window resolution
+      cellResolution: 22 // todo add a watch function and change the cellResolution based on the window resolution
     }
   },
   computed: {
@@ -55,22 +55,18 @@ export default {
       cellsPerColumn: this.cellsPerColumn
     })
     this.$store.dispatch('cells-grid/randomizeGridState')
+    this.initDrawing()
     this.drawCellsGrid()
   },
   methods: {
+    initDrawing() {
+      this.canvasContext.fillStyle = 'grey'
+      this.canvasContext.fillRect(0, 0, this.gridWidth, this.gridHeight)
+    },
     drawCellsGrid() {
       // window.console.log('drawing process')
-      this.canvasContext.clearRect(0, 0, this.gridWidth, this.gridHeight)
-
       for (let x = 0; x < this.cellsPerRow; x++) {
         for (let y = 0; y < this.cellsPerColumn; y++) {
-          this.canvasContext.strokeRect(
-            x * this.cellResolution,
-            y * this.cellResolution,
-            this.cellResolution,
-            this.cellResolution
-          )
-
           // Draw a living cell base on the cells grid current state
           if (this.cellsGrid.currentGridState[x][y]) {
             this.canvasContext.fillStyle = this.livingCellFillStyle
@@ -79,10 +75,10 @@ export default {
           }
 
           this.canvasContext.fillRect(
-            x * this.cellResolution + 1,
-            y * this.cellResolution + 1,
-            this.cellResolution - 1,
-            this.cellResolution - 1
+            x * this.cellResolution,
+            y * this.cellResolution,
+            this.cellResolution - 2,
+            this.cellResolution - 2
           )
         }
       }
@@ -96,6 +92,7 @@ export default {
 <style scoped>
 canvas {
   width: 100%;
-  border: 1px solid black;
+  border-left: 2px solid grey;
+  border-top: 2px solid grey;
 }
 </style>

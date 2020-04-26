@@ -19,7 +19,7 @@ export default {
     },
     cellsPerColumn: {
       type: Number,
-      default: 30
+      default: 20
     }
   },
   data() {
@@ -54,25 +54,12 @@ export default {
       cellsPerRow: this.cellsPerRow,
       cellsPerColumn: this.cellsPerColumn
     })
-    this.randomizeGridState()
+    this.$store.dispatch('cells-grid/randomizeGridState')
     this.drawCellsGrid()
   },
   methods: {
-    launchGridEvolution() {
-      window.console.log('launch evolution')
-      const timerId = setInterval(() => this.nextGridState(), 300)
-      window.console.log(timerId)
-    },
-    nextGridState() {
-      window.console.log('next grid state')
-      this.$store.dispatch('cells-grid/nextGridState')
-    },
-    randomizeGridState() {
-      window.console.log('randomize state')
-      this.$store.dispatch('cells-grid/randomizeGridState')
-    },
     drawCellsGrid() {
-      window.console.log('drawing process')
+      // window.console.log('drawing process')
       this.canvasContext.clearRect(0, 0, this.gridWidth, this.gridHeight)
 
       for (let x = 0; x < this.cellsPerRow; x++) {

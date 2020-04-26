@@ -2,54 +2,36 @@
   <section class="section">
     <div class="container">
       <div class="box is-radiusless">
-        <game-grid ref="gameGrid" :cells-per-row="cellsPerRow"></game-grid>
+        <game-grid
+          :cells-per-row="cellsPerRow"
+          :cells-per-column="cellsPerColumn"
+        ></game-grid>
       </div>
-      <div class="buttons is-centered has-background-white">
-        <button class="button is-primary" @click="launchEvolution()">
-          <span class="icon">
-            <i class="far fa-play-circle"></i>
-          </span>
-          <span>Launch evolution</span>
-        </button>
-        <button class="button is-primary" @click="randomizeState()">
-          <span class="icon">
-            <i class="fas fa-dice"></i>
-          </span>
-          <span>Randomize state</span>
-        </button>
-      </div>
+      <game-control-panel></game-control-panel>
     </div>
   </section>
 </template>
 
 <script>
 import GameGrid from '@/components/game/GameGrid'
+import GameControlPanel from '@/components/game/GameControlPanel'
 
 export default {
   name: 'GamePage',
   components: {
-    GameGrid
+    GameGrid,
+    GameControlPanel
   },
   data() {
     return {
-      cellsPerRow: 60
-    }
-  },
-  methods: {
-    launchEvolution() {
-      this.$refs.gameGrid.launchGridEvolution()
-    },
-    randomizeState() {
-      this.$refs.gameGrid.randomizeGridState()
+      cellsPerRow: 60,
+      cellsPerColumn: 25
     }
   }
 }
 </script>
 
 <style scoped>
-.buttons {
-  padding-top: 0.5rem;
-}
 .section {
   padding: 1.5rem 0 0 0;
 }

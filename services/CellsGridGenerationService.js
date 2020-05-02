@@ -1,44 +1,66 @@
 export default {
   // todo add unit test
   getRandomizedGrid(cellsPerRow, cellsPerColumn) {
-    const toReturn = []
+    const gridState = []
+    let nbCellBirth = 0
+
     for (let x = 0; x < cellsPerRow; x++) {
       const row = []
       for (let y = 0; y < cellsPerColumn; y++) {
-        row.push(Math.round(Math.random()))
+        const cellState = Math.round(Math.random())
+        if (cellState === 1) {
+          nbCellBirth++
+        }
+        row.push(cellState)
       }
-      toReturn.push(row)
+      gridState.push(row)
     }
+    const toReturn = {}
+    toReturn.gridState = gridState
+    toReturn.counters = {}
+    toReturn.counters.nbCellBirth = nbCellBirth
 
     return toReturn
   },
   getNextGridGeneration(cellsGrid) {
-    const toReturn = [[]]
+    const nextGridState = [[]]
+    let nbLivingCells = 0
+    let nbCellBirth = 0
+    let nbCellDeath = 0
 
     for (const [x, column] of cellsGrid.entries()) {
-      toReturn[x] = []
+      nextGridState[x] = []
       // eslint-disable-next-line no-unused-vars
       for (const [y, value] of column.entries()) {
         const nbNeighbors = this.getNbNeighbors(cellsGrid, x, y)
-        const currentCellState = cellsGrid[x][y]
-        /*  THE EVOLUTION RULES
-          Rule 1 : Any live cell with two or three neighbors survives (stable)
-              if (currentCellState == 1 && (nbNeighbors == 2 || nbNeighbors == 3)) toReturn[x][y] = 1
-          Rule 2 : Any dead cell with three live neighbors becomes a live cell (birth)
-              if (currentCellState == 0 && nbNeighbors == 3) toReturn[x][y] = 1
-          Rule 3 : All other live cells die in the next generation. Similarly, all other dead cells stay dead (underpopulation and overpopulation)
-              if (currentCellState == 0 || nbNeighbors < 2 || nbNeighbors > 3) toReturn[x][y] = 0
-          Which can be summarized like follow :
-         */
-        toReturn[x][y] = 0
-        if (
-          nbNeighbors === 3 ||
-          (currentCellState === 1 && nbNeighbors === 2)
-        ) {
-          toReturn[x][y] = 1
+        const crtCellState = cellsGrid[x][y]
+        /*  THE EVOLUTION RULES */
+        if (crtCellState === 1 && (nbNeighbors === 2 || nbNeighbors === 3)) {
+          // Rule 1 : Any live cell with two or three neighbors survives (stable alive)
+          nextGridState[x][y] = 1
+          nbLivingCells++
+        } else if (crtCellState === 0 && nbNeighbors === 3) {
+          // Rule 2 : Any dead cell with three live neighbors becomes a live cell (birth)
+          nextGridState[x][y] = 1
+          nbLivingCells++
+          nbCellBirth++
+        } else if (crtCellState === 1 && (nbNeighbors < 2 || nbNeighbors > 3)) {
+          // Rule 3 : All other live cells die in the next generation. (death by underpopulation or overpopulation)
+          nextGridState[x][y] = 0
+          nbCellDeath++
+        } else {
+          // Similarly, all other dead cells stay dead (stable death)
+          nextGridState[x][y] = 0
         }
       }
     }
+
+    const toReturn = {}
+    toReturn.nextGridState = nextGridState
+    toReturn.counters = {}
+    toReturn.counters.nbLivingCells = nbLivingCells
+    toReturn.counters.nbCellBirth = nbCellBirth
+    toReturn.counters.nbCellDeath = nbCellDeath
 
     return toReturn
   },

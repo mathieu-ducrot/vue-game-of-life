@@ -2,7 +2,7 @@
   <canvas
     ref="game-grid"
     :width="gridWidth"
-    :height="gridHeight"
+    :height="gridHeight + cellResolution"
     class="is-block"
   ></canvas>
 </template>
@@ -19,22 +19,26 @@ export default {
     },
     cellsPerColumn: {
       type: Number,
-      default: 30
+      default: 20
     }
   },
   data() {
     return {
+      timeLastDraw: 0,
+      timeLastDrawFps: 0,
+      rafId: 0, // requestAnimationFrameId
       livingCellFillStyle: '#82ded2',
       deadCellFillStyle: '#fff',
-      cellResolution: 30 // todo add a watch function and change the cellResolution based on the window resolution
+      cellResolution: 22,
+      cellBorderSize: 2
     }
   },
   computed: {
     gridWidth() {
-      return this.cellsPerRow * this.cellResolution
+      return this.cellsPerRow * this.cellResolution + this.cellBorderSize
     },
     gridHeight() {
-      return this.cellsPerColumn * this.cellResolution
+      return this.cellsPerColumn * this.cellResolution + this.cellBorderSize
     },
     canvasContext() {
       const canvas = this.$refs['game-grid']
@@ -54,36 +58,25 @@ export default {
       cellsPerRow: this.cellsPerRow,
       cellsPerColumn: this.cellsPerColumn
     })
-    this.randomizeGridState()
+    this.$store.dispatch('cells-grid/randomizeGridState')
+    this.timeLastDraw = performance.now()
+    this.timeLastDrawFps = performance.now()
+    this.initDrawing()
     this.drawCellsGrid()
   },
+  beforeDestroy() {
+    // Prevent timeout to still be running on switch pages
+    window.cancelAnimationFrame(this.rafId)
+  },
   methods: {
-    launchGridEvolution() {
-      window.console.log('launch evolution')
-      const timerId = setInterval(() => this.nextGridState(), 300)
-      window.console.log(timerId)
-    },
-    nextGridState() {
-      window.console.log('next grid state')
-      this.$store.dispatch('cells-grid/nextGridState')
-    },
-    randomizeGridState() {
-      window.console.log('randomize state')
-      this.$store.dispatch('cells-grid/randomizeGridState')
+    initDrawing() {
+      this.canvasContext.fillStyle = 'grey'
+      this.canvasContext.fillRect(0, 0, this.gridWidth, this.gridHeight)
     },
     drawCellsGrid() {
-      window.console.log('drawing process')
-      this.canvasContext.clearRect(0, 0, this.gridWidth, this.gridHeight)
-
+      // window.console.log('drawing process')
       for (let x = 0; x < this.cellsPerRow; x++) {
         for (let y = 0; y < this.cellsPerColumn; y++) {
-          this.canvasContext.strokeRect(
-            x * this.cellResolution,
-            y * this.cellResolution,
-            this.cellResolution,
-            this.cellResolution
-          )
-
           // Draw a living cell base on the cells grid current state
           if (this.cellsGrid.currentGridState[x][y]) {
             this.canvasContext.fillStyle = this.livingCellFillStyle
@@ -92,15 +85,40 @@ export default {
           }
 
           this.canvasContext.fillRect(
-            x * this.cellResolution + 1,
-            y * this.cellResolution + 1,
-            this.cellResolution - 1,
-            this.cellResolution - 1
+            x * this.cellResolution + this.cellBorderSize,
+            y * this.cellResolution + this.cellBorderSize,
+            this.cellResolution - this.cellBorderSize,
+            this.cellResolution - this.cellBorderSize
           )
         }
       }
 
-      window.requestAnimationFrame(this.drawCellsGrid)
+      this.calculateFps()
+      this.rafId = window.requestAnimationFrame(this.drawCellsGrid)
+    },
+    calculateFps() {
+      // Calculate FPS then print it every second
+      const timeCurrentDraw = performance.now()
+      const deltaTimeToDraw = timeCurrentDraw - this.timeLastDraw
+      this.timeLastDraw = timeCurrentDraw
+
+      if (this.timeLastDraw - this.timeLastDrawFps > 1000) {
+        this.timeLastDrawFps = this.timeLastDraw
+        this.canvasContext.fillStyle = 'white'
+        this.canvasContext.fillRect(
+          0,
+          this.gridHeight + 1,
+          this.gridWidth,
+          this.cellResolution
+        )
+        this.canvasContext.fillStyle = 'black'
+        this.canvasContext.font = '13px Helvetica'
+        this.canvasContext.fillText(
+          (1000 / deltaTimeToDraw).toFixed(1) + ' average fps per second',
+          0,
+          this.gridHeight + 13
+        )
+      }
     }
   }
 }
@@ -109,6 +127,5 @@ export default {
 <style scoped>
 canvas {
   width: 100%;
-  border: 1px solid black;
 }
 </style>

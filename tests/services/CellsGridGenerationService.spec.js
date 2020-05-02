@@ -86,10 +86,15 @@ describe('CellsGridGenerationService', () => {
        Cell position 1,1 match rule 3 (cas overpopulation)
        Cell position 2,2 match rule 3 (cas underpopulation)
      */
-    expect(nextGridGeneration).toEqual([
+    expect(nextGridGeneration.nextGridState).toEqual([
       [1, 0, 1],
       [1, 0, 0],
       [0, 1, 0]
     ])
+    expect(nextGridGeneration.counters.nbLivingCells).toEqual(4)
+    // Asset Birth (1 from position 2,1)
+    expect(nextGridGeneration.counters.nbCellBirth).toEqual(1)
+    // Asset Death (3 from positions 0,1 position 1,1 and 2,2)
+    expect(nextGridGeneration.counters.nbCellDeath).toEqual(3)
   })
 })

@@ -1,6 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
+      <game-data-panel></game-data-panel>
       <div class="box is-radiusless">
         <game-grid
           :cells-per-row="cellsPerRow"
@@ -15,12 +16,14 @@
 <script>
 import GameGrid from '@/components/game/GameGrid'
 import GameControlPanel from '@/components/game/GameControlPanel'
+import GameDataPanel from '@/components/game/GameDataPanel'
 
 export default {
   name: 'GamePage',
   components: {
     GameGrid,
-    GameControlPanel
+    GameControlPanel,
+    GameDataPanel
   },
   data() {
     return {

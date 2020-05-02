@@ -69,6 +69,7 @@ export default {
   data() {
     return {
       runningEvolution: false,
+      timerId: 0,
       currentSpeed: 3, // aim default speed
       speedOptions: [
         {
@@ -81,7 +82,7 @@ export default {
         },
         {
           name: '1 seconde',
-          timeout: 750
+          timeout: 1000
         },
         {
           name: 'default',
@@ -105,6 +106,10 @@ export default {
         }
       ]
     }
+  },
+  beforeDestroy() {
+    // Prevent timeout to still be running on switch pages
+    clearTimeout(this.timerId)
   },
   methods: {
     launchGridEvolution() {

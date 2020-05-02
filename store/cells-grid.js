@@ -3,7 +3,11 @@ import CellsGridGenerationService from '@/services/CellsGridGenerationService.js
 export const state = () => ({
   cellsPerRow: 20,
   cellsPerColumn: 20,
-  currentGridState: [[]]
+  currentGridState: [[]],
+  nbLivingCells: 0,
+  nbCellBirth: 0,
+  nbCellDeath: 0,
+  tick: 0
 })
 
 export const mutations = {
@@ -15,6 +19,23 @@ export const mutations = {
   },
   SET_CURRENT_GRID_STATE(state, gridState) {
     state.currentGridState = gridState
+  },
+  SET_NB_LIVING_CELLS(state, nb) {
+    state.nbLivingCells = nb
+  },
+  INCREMENT_NB_CELL_BIRTH(state, nb) {
+    state.nbCellBirth = state.nbCellBirth + nb
+  },
+  INCREMENT_NB_CELL_DEATH(state, nb) {
+    state.nbCellDeath = state.nbCellDeath + nb
+  },
+  INCREMENT_TICK(state) {
+    state.tick++
+  },
+  INIT_COUNTER(state) {
+    state.nbCellBirth = 0
+    state.nbCellDeath = 0
+    state.tick = 0
   }
 }
 
@@ -24,18 +45,42 @@ export const actions = {
     commit('SET_CELLS_PER_COLUMN', gridData.cellsPerColumn)
   },
   randomizeGridState({ commit, state }) {
-    commit(
-      'SET_CURRENT_GRID_STATE',
-      CellsGridGenerationService.getRandomizedGrid(
-        state.cellsPerRow,
-        state.cellsPerColumn
-      )
+    const randomizeGrid = CellsGridGenerationService.getRandomizedGrid(
+      state.cellsPerRow,
+      state.cellsPerColumn
     )
+
+    commit('SET_CURRENT_GRID_STATE', randomizeGrid.gridState)
+    commit('SET_NB_LIVING_CELLS', randomizeGrid.counters.nbCellBirth)
+    commit('INIT_COUNTER')
   },
   nextGridState({ commit, state }) {
-    commit(
-      'SET_CURRENT_GRID_STATE',
-      CellsGridGenerationService.getNextGridGeneration(state.currentGridState)
+    const nextGrid = CellsGridGenerationService.getNextGridGeneration(
+      state.currentGridState
     )
+
+    commit('SET_CURRENT_GRID_STATE', nextGrid.nextGridState)
+    commit('SET_NB_LIVING_CELLS', nextGrid.counters.nbLivingCells)
+    commit('INCREMENT_NB_CELL_BIRTH', nextGrid.counters.nbCellBirth)
+    commit('INCREMENT_NB_CELL_DEATH', nextGrid.counters.nbCellDeath)
+    commit('INCREMENT_TICK')
+  }
+}
+
+export const getters = {
+  getNbCells: (state) => {
+    return state.cellsPerRow * state.cellsPerColumn
+  },
+  getNbLivingCells: (state) => {
+    return state.nbLivingCells
+  },
+  getNbCellBirth: (state) => {
+    return state.nbCellBirth
+  },
+  getNbCellDeath: (state) => {
+    return state.nbCellDeath
+  },
+  getTick: (state) => {
+    return state.tick
   }
 }

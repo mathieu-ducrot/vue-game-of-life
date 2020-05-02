@@ -1,6 +1,6 @@
 <template>
   <div class="control-panel has-background-white">
-    <b>Speed Level</b> : {{ speedOptions[currentSpeed].name }}
+    <b>State generation speed level</b> : {{ speedOptions[currentSpeed].name }}
     <div class="buttons is-centered has-addons is-marginless">
       <button
         class="button is-primary"
@@ -147,7 +147,7 @@ export default {
       this.nextGridState()
     },
     nextGridState() {
-      window.console.log('next grid state')
+      // window.console.log('next grid state')
       this.$store.dispatch('cells-grid/nextGridState')
     },
     randomizeGridState() {

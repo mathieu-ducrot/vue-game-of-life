@@ -1,5 +1,5 @@
 <template>
-  <div class="level is-mobile is-paddingless has-background-white">
+  <div class="level is-mobile has-background-white">
     <div class="level-item has-text-centered">
       <div>
         <p class="heading">Cells</p>
@@ -51,6 +51,10 @@ export default {
 </script>
 
 <style scoped>
+.level {
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+}
 .heading {
   margin-bottom: 0;
 }

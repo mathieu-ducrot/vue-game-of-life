@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section class="section is-paddingless">
     <div class="container">
       <game-data-panel></game-data-panel>
       <div class="box is-radiusless">
@@ -33,9 +33,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.section {
-  padding: 1.5rem 0 0 0;
-}
-</style>

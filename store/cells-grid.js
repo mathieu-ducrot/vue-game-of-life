@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import CellsGridGenerationService from '@/services/CellsGridGenerationService.js'
 
 export const state = () => ({
@@ -7,7 +8,8 @@ export const state = () => ({
   nbLivingCells: 0,
   nbCellBirth: 0,
   nbCellDeath: 0,
-  tick: 0
+  tick: 0,
+  editorMode: false
 })
 
 export const mutations = {
@@ -36,6 +38,24 @@ export const mutations = {
     state.nbCellBirth = 0
     state.nbCellDeath = 0
     state.tick = 0
+  },
+  SET_EDITOR_MODE(state, value) {
+    state.editorMode = value
+  },
+  TOGGLE_CELL_STATE(state, positions) {
+    const xPosition = positions.x
+    const yPosition = positions.y
+    const newRow = state.currentGridState[xPosition].slice(0)
+    if (state.currentGridState[xPosition][yPosition] === 1) {
+      newRow[yPosition] = 0
+      // https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+      Vue.set(state.currentGridState, xPosition, newRow)
+      state.nbLivingCells--
+    } else {
+      newRow[yPosition] = 1
+      Vue.set(state.currentGridState, xPosition, newRow)
+      state.nbLivingCells++
+    }
   }
 }
 
@@ -64,6 +84,15 @@ export const actions = {
     commit('INCREMENT_NB_CELL_BIRTH', nextGrid.counters.nbCellBirth)
     commit('INCREMENT_NB_CELL_DEATH', nextGrid.counters.nbCellDeath)
     commit('INCREMENT_TICK')
+  },
+  editorModeOn({ commit }) {
+    commit('SET_EDITOR_MODE', true)
+  },
+  editorModeOff({ commit }) {
+    commit('SET_EDITOR_MODE', false)
+  },
+  toggleCellState({ commit }, positions) {
+    commit('TOGGLE_CELL_STATE', positions)
   }
 }
 

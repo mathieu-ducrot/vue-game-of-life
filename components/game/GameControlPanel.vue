@@ -53,6 +53,16 @@
     </div>
 
     <div class="buttons is-centered has-addons">
+      <button
+        class="button is-dark"
+        :disabled="cellsGrid.editorMode"
+        @click="editorMode()"
+      >
+        <span class="icon">
+          <i class="fas fa-edit fa-lg"></i>
+        </span>
+        <span>Editor Mode</span>
+      </button>
       <button class="button is-warning" @click="randomizeGridState()">
         <span class="icon">
           <i class="fas fa-dice fa-lg"></i>
@@ -64,6 +74,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'GameControlPanel',
   data() {
@@ -98,7 +110,7 @@ export default {
         },
         {
           name: 'very fast',
-          timeout: 50
+          timeout: 75
         },
         {
           name: 'such speed!',
@@ -107,13 +119,20 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      cellsGrid: (state) => state['cells-grid']
+    })
+  },
   beforeDestroy() {
+    this.$store.dispatch('cells-grid/editorModeOff')
     // Prevent timeout to still be running on switch pages
     clearTimeout(this.timerId)
   },
   methods: {
     launchGridEvolution() {
       window.console.log('launch evolution')
+      this.$store.dispatch('cells-grid/editorModeOff')
       this.runningEvolution = true
       // Used recursive setTimeout to avoid multiple calls queued back to back with setInterval
       this.timerId = setTimeout(
@@ -149,6 +168,11 @@ export default {
     nextGridState() {
       // window.console.log('next grid state')
       this.$store.dispatch('cells-grid/nextGridState')
+    },
+    editorMode() {
+      window.console.log('editor mode')
+      this.stopGridEvolution()
+      this.$store.dispatch('cells-grid/editorModeOn')
     },
     randomizeGridState() {
       window.console.log('randomize state')

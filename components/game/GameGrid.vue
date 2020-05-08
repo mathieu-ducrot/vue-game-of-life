@@ -1,17 +1,42 @@
 <template>
-  <canvas
-    ref="game-grid"
-    :width="gridWidth"
-    :height="gridHeight + cellResolution"
-    class="is-block"
-  ></canvas>
+  <div>
+    <canvas
+      v-show="!cellsGrid.editorMode"
+      ref="canvas-grid"
+      :width="gridWidth"
+      :height="gridHeight + cellResolution"
+    ></canvas>
+    <div v-if="cellsGrid.editorMode">
+      <div class="css-grid">
+        <div v-for="(xVal, x) in cellsPerRow" :key="x" class="css-grid-column">
+          <grid-cell
+            v-for="(yVal, y) in cellsPerColumn"
+            :key="x + '_' + y"
+            :x-position="x"
+            :y-position="y"
+            :alive-color="livingCellFillStyle"
+          ></grid-cell>
+        </div>
+      </div>
+      <p class="has-text-centered editor-info">
+        <span class="icon">
+          <i class="fas fa-edit"></i>
+        </span>
+        <span><b>Editor Mode :</b> Click on a cell to change his state.</span>
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import GridCell from '@/components/game/GridCell'
 
 export default {
   name: 'GameGrid',
+  components: {
+    GridCell
+  },
   props: {
     cellsPerRow: {
       type: Number,
@@ -41,7 +66,7 @@ export default {
       return this.cellsPerColumn * this.cellResolution + this.cellBorderSize
     },
     canvasContext() {
-      const canvas = this.$refs['game-grid']
+      const canvas = this.$refs['canvas-grid']
       if (canvas.getContext) {
         return canvas.getContext('2d')
       } else {
@@ -112,7 +137,7 @@ export default {
           this.cellResolution
         )
         this.canvasContext.fillStyle = 'black'
-        this.canvasContext.font = '13px Helvetica'
+        this.canvasContext.font = '13px IBM Plex Sans, Arial'
         this.canvasContext.fillText(
           (1000 / deltaTimeToDraw).toFixed(1) + ' average fps per second',
           0,
@@ -124,8 +149,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 canvas {
   width: 100%;
+}
+.css-grid {
+  display: flex;
+  border-top: 2px dashed #959595;
+  border-left: 2px dashed #959595;
+  .css-grid-column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+.editor-info {
+  font-size: 13px;
+  .icon {
+    display: inline-table;
+  }
 }
 </style>

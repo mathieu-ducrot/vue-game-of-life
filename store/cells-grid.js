@@ -74,6 +74,16 @@ export const actions = {
     commit('SET_NB_LIVING_CELLS', randomizeGrid.counters.nbCellBirth)
     commit('INIT_COUNTER')
   },
+  clearGridState({ commit, state }) {
+    const emptyGrid = CellsGridGenerationService.getEmptyGrid(
+      state.cellsPerRow,
+      state.cellsPerColumn
+    )
+
+    commit('SET_CURRENT_GRID_STATE', emptyGrid)
+    commit('SET_NB_LIVING_CELLS', 0)
+    commit('INIT_COUNTER')
+  },
   nextGridState({ commit, state }) {
     const nextGrid = CellsGridGenerationService.getNextGridGeneration(
       state.currentGridState

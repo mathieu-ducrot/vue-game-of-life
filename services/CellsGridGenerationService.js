@@ -1,4 +1,17 @@
 export default {
+  getEmptyGrid(cellsPerRow, cellsPerColumn) {
+    const toReturn = []
+
+    for (let x = 0; x < cellsPerRow; x++) {
+      const row = []
+      for (let y = 0; y < cellsPerColumn; y++) {
+        row.push(0)
+      }
+      toReturn.push(row)
+    }
+
+    return toReturn
+  },
   // todo add unit test
   getRandomizedGrid(cellsPerRow, cellsPerColumn) {
     const gridState = []

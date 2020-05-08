@@ -63,11 +63,18 @@
         </span>
         <span>Editor Mode</span>
       </button>
+
       <button class="button is-warning" @click="randomizeGridState()">
         <span class="icon">
           <i class="fas fa-dice fa-lg"></i>
         </span>
         <span>Randomize state</span>
+      </button>
+      <button class="button is-danger" @click="clearGridState()">
+        <span class="icon">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+        <span>Clear the grid</span>
       </button>
     </div>
   </div>
@@ -177,6 +184,10 @@ export default {
     randomizeGridState() {
       window.console.log('randomize state')
       this.$store.dispatch('cells-grid/randomizeGridState')
+    },
+    clearGridState() {
+      window.console.log('clear grid state')
+      this.$store.dispatch('cells-grid/clearGridState')
     }
   }
 }

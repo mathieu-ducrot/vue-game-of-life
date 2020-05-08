@@ -1,41 +1,41 @@
 <template>
   <div>
-    <canvas
-      v-show="!cellsGrid.editorMode"
-      ref="canvas-grid"
-      :width="gridWidth"
-      :height="gridHeight + cellResolution"
-    ></canvas>
-    <div v-if="cellsGrid.editorMode">
-      <div class="css-grid">
-        <div v-for="(xVal, x) in cellsPerRow" :key="x" class="css-grid-column">
-          <grid-cell
-            v-for="(yVal, y) in cellsPerColumn"
-            :key="x + '_' + y"
-            :x-position="x"
-            :y-position="y"
-            :alive-color="livingCellFillStyle"
-          ></grid-cell>
-        </div>
-      </div>
-      <p class="has-text-centered editor-info">
-        <span class="icon">
-          <i class="fas fa-edit"></i>
-        </span>
-        <span><b>Editor Mode :</b> Click on a cell to change his state.</span>
-      </p>
-    </div>
+    <!--    <canvas-->
+    <!--      v-show="!cellsGrid.editorMode"-->
+    <!--      ref="canvas-grid"-->
+    <!--      :width="gridWidth"-->
+    <!--      :height="gridHeight + cellResolution"-->
+    <!--    ></canvas>-->
+    <!--    <div v-if="cellsGrid.editorMode">-->
+    <!--      <div class="css-grid">-->
+    <!--        <div v-for="(xVal, x) in cellsPerRow" :key="x" class="css-grid-column">-->
+    <!--          <grid-cell-->
+    <!--            v-for="(yVal, y) in cellsPerColumn"-->
+    <!--            :key="x + '_' + y"-->
+    <!--            :x-position="x"-->
+    <!--            :y-position="y"-->
+    <!--            :alive-color="livingCellFillStyle"-->
+    <!--          ></grid-cell>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <p class="has-text-centered editor-info">-->
+    <!--        <span class="icon">-->
+    <!--          <i class="fas fa-edit"></i>-->
+    <!--        </span>-->
+    <!--        <span><b>Editor Mode :</b> Click on a cell to change his state.</span>-->
+    <!--      </p>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import GridCell from '@/components/game/GridCell'
+// import GridCell from '@/components/game/GridCell'
 
 export default {
   name: 'GameGrid',
   components: {
-    GridCell
+    // GridCell
   },
   props: {
     cellsPerRow: {
@@ -84,10 +84,10 @@ export default {
       cellsPerColumn: this.cellsPerColumn
     })
     this.$store.dispatch('cells-grid/randomizeGridState')
-    this.timeLastDraw = performance.now()
-    this.timeLastDrawFps = performance.now()
-    this.initDrawing()
-    this.drawCellsGrid()
+    // this.timeLastDraw = performance.now()
+    // this.timeLastDrawFps = performance.now()
+    // this.initDrawing()
+    // this.drawCellsGrid()
   },
   beforeDestroy() {
     // Prevent timeout to still be running on switch pages

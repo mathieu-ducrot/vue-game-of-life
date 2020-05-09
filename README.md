@@ -1,5 +1,7 @@
 # game-of-life
 
+[![Build Status](https://api.travis-ci.org/mathieu-ducrot/game-of-life.png?branch=master)](https://travis-ci.org/mathieu-ducrot/game-of-life)
+
 > The Game of Life from John Conway implemented with Vue.js
 
 This project is a coding challenge that i made to test my skill on Vue 2 and some basic configuration with Nuxt and Bulma.
@@ -49,3 +51,7 @@ yarn start
 # generate static project
 yarn generate
 ```
+
+## License
+
+[MIT](https://github.com/mathieu-ducrot/game-of-life/blob/master/LICENSE)

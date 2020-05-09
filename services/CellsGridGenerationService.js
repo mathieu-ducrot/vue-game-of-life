@@ -52,17 +52,17 @@ export default {
           // Rule 1 : Any live cell with two or three neighbors survives (stable alive)
           nextGridState[x][y] = 1
           nbLivingCells++
+        } else if (crtCellState === 1 && (nbNeighbors < 2 || nbNeighbors > 3)) {
+          // Rule 2 : All other live cells die in the next generation. (death by subpopulation or overcrowding)
+          nextGridState[x][y] = 0
+          nbCellDeath++
         } else if (crtCellState === 0 && nbNeighbors === 3) {
-          // Rule 2 : Any dead cell with three live neighbors becomes a live cell (birth)
+          // Rule 3 : Any dead cell with three live neighbors becomes a live cell (birth)
           nextGridState[x][y] = 1
           nbLivingCells++
           nbCellBirth++
-        } else if (crtCellState === 1 && (nbNeighbors < 2 || nbNeighbors > 3)) {
-          // Rule 3 : All other live cells die in the next generation. (death by underpopulation or overpopulation)
-          nextGridState[x][y] = 0
-          nbCellDeath++
         } else {
-          // Similarly, all other dead cells stay dead (stable death)
+          // Rule 4 : Similarly, all other dead cells stay dead (stable death)
           nextGridState[x][y] = 0
         }
       }

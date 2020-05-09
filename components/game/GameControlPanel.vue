@@ -54,7 +54,7 @@
 
     <div class="buttons is-centered has-addons">
       <button
-        class="button is-dark"
+        class="button is-link"
         :disabled="cellsGrid.editorMode"
         @click="editorMode()"
       >
@@ -64,7 +64,7 @@
         <span>Editor Mode</span>
       </button>
 
-      <button class="button is-warning" @click="randomizeGridState()">
+      <button class="button is-link is-outlined" @click="randomizeGridState()">
         <span class="icon">
           <i class="fas fa-dice fa-lg"></i>
         </span>

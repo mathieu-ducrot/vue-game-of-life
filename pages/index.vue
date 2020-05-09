@@ -10,8 +10,14 @@
         </div>
         <p class="subtitle">
           A <strong class="has-text-primary">VueJS</strong> implementation of
-          the Game of life cellular automaton
+          the Game of Life cellular automaton
         </p>
+        <nuxt-link class="button is-medium is-link" :to="{ name: 'game' }">
+          <span>Get Started </span>
+          <span class="icon">
+            <i class="fas fa-play"></i>
+          </span>
+        </nuxt-link>
       </div>
     </div>
     <div class="hero-foot">
@@ -31,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 html {
   /* Hide the useless scrollbar */
   overflow-y: auto;

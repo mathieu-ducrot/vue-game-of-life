@@ -60,9 +60,10 @@ export const mutations = {
 }
 
 export const actions = {
-  initGridState({ commit }, gridData) {
+  initGridState({ commit, dispatch }, gridData) {
     commit('SET_CELLS_PER_ROW', gridData.cellsPerRow)
     commit('SET_CELLS_PER_COLUMN', gridData.cellsPerColumn)
+    dispatch('clearGridState')
   },
   randomizeGridState({ commit, state }) {
     const randomizeGrid = CellsGridGenerationService.getRandomizedGrid(
@@ -109,6 +110,10 @@ export const actions = {
 export const getters = {
   getNbCells: (state) => {
     return state.cellsPerRow * state.cellsPerColumn
+  },
+  // https://vuex.vuejs.org/guide/getters.html#method-style-access
+  getCellState: (state) => (x, y) => {
+    return state.currentGridState[x] && state.currentGridState[x][y] === 1
   },
   getNbLivingCells: (state) => {
     return state.nbLivingCells

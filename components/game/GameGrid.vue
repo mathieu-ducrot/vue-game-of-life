@@ -1,42 +1,14 @@
 <template>
-  <div>
-    <canvas
-      v-show="!cellsGrid.editorMode"
-      ref="canvas-grid"
-      :width="gridWidth"
-      :height="gridHeight + cellResolution"
-    ></canvas>
-    <div v-if="cellsGrid.editorMode">
-      <div class="css-grid">
-        <div v-for="(xVal, x) in cellsPerRow" :key="x" class="css-grid-column">
-          <grid-cell
-            v-for="(yVal, y) in cellsPerColumn"
-            :key="x + '_' + y"
-            :x-position="x"
-            :y-position="y"
-            :alive-color="livingCellFillStyle"
-          ></grid-cell>
-        </div>
-      </div>
-      <p class="has-text-centered editor-info">
-        <span class="icon">
-          <i class="fas fa-edit"></i>
-        </span>
-        <span><b>Editor Mode :</b> Click on a cell to change his state.</span>
-      </p>
-    </div>
-  </div>
+  <canvas
+    ref="canvas-grid"
+    :width="gridWidth"
+    :height="showFps === true ? gridHeight + cellResolution : gridHeight"
+  ></canvas>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import GridCell from '@/components/game/GridCell'
-
 export default {
   name: 'GameGrid',
-  components: {
-    GridCell
-  },
   props: {
     cellsPerRow: {
       type: Number,
@@ -45,6 +17,10 @@ export default {
     cellsPerColumn: {
       type: Number,
       default: 20
+    },
+    showFps: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -73,17 +49,13 @@ export default {
         // todo case when canvas is not supported
         return false
       }
-    },
-    ...mapState({
-      cellsGrid: (state) => state['cells-grid']
-    })
+    }
   },
   mounted() {
     this.$store.dispatch('cells-grid/initGridState', {
       cellsPerRow: this.cellsPerRow,
       cellsPerColumn: this.cellsPerColumn
     })
-    this.$store.dispatch('cells-grid/randomizeGridState')
     this.timeLastDraw = performance.now()
     this.timeLastDrawFps = performance.now()
     this.initDrawing()
@@ -103,7 +75,7 @@ export default {
       for (let x = 0; x < this.cellsPerRow; x++) {
         for (let y = 0; y < this.cellsPerColumn; y++) {
           // Draw a living cell base on the cells grid current state
-          if (this.cellsGrid.currentGridState[x][y]) {
+          if (this.$store.getters['cells-grid/getCellState'](x, y)) {
             this.canvasContext.fillStyle = this.livingCellFillStyle
           } else {
             this.canvasContext.fillStyle = this.deadCellFillStyle
@@ -139,7 +111,7 @@ export default {
         this.canvasContext.fillStyle = 'black'
         this.canvasContext.font = '13px IBM Plex Sans, Arial'
         this.canvasContext.fillText(
-          (1000 / deltaTimeToDraw).toFixed(1) + ' average fps per second',
+          (1000 / deltaTimeToDraw).toFixed(1) + ' average fps',
           0,
           this.gridHeight + 13
         )
@@ -152,21 +124,5 @@ export default {
 <style scoped lang="scss">
 canvas {
   width: 100%;
-}
-.css-grid {
-  display: flex;
-  border-top: 2px dashed #959595;
-  border-left: 2px dashed #959595;
-  .css-grid-column {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-}
-.editor-info {
-  font-size: 13px;
-  .icon {
-    display: inline-table;
-  }
 }
 </style>

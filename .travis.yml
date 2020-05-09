@@ -12,7 +12,7 @@ branches:
 
 install:
   - yarn install
-  - yarn run generate
+  - yarn generate:gh-pages
 
 script:
   - yarn test

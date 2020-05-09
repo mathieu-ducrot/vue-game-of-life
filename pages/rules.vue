@@ -2,8 +2,8 @@
   <div>
     <section class="section">
       <div class="container">
-        <h1 class="title">Game of Life's Rules</h1>
         <div class="content">
+          <h1 class="title">Game of Life's Rules</h1>
           <h2>Description</h2>
           <p>
             The
@@ -136,7 +136,7 @@
 import GameGrid from '@/components/game/GameGrid'
 
 export default {
-  name: 'GamePage',
+  name: 'RulesPage',
   components: {
     GameGrid
   },
@@ -156,9 +156,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.title {
-  margin-bottom: 2rem;
-}
 .demo-grid {
   max-width: 108px;
 }

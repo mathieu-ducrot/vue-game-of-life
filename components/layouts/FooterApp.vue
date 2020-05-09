@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .level {
   padding: 0 30px 20px 30px;
 }

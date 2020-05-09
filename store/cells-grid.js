@@ -111,6 +111,10 @@ export const getters = {
   getNbCells: (state) => {
     return state.cellsPerRow * state.cellsPerColumn
   },
+  // https://vuex.vuejs.org/guide/getters.html#method-style-access
+  getCellState: (state) => (x, y) => {
+    return state.currentGridState[x] && state.currentGridState[x][y] === 1
+  },
   getNbLivingCells: (state) => {
     return state.nbLivingCells
   },

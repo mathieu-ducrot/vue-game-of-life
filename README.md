@@ -1,4 +1,4 @@
-# game-of-life
+<h1 align="center">Game of Life / Vue.js Implementation</h1>
 
 [![Build Status](https://api.travis-ci.org/mathieu-ducrot/game-of-life.png?branch=master)](https://travis-ci.org/mathieu-ducrot/game-of-life)
 
@@ -7,6 +7,8 @@
 This project is a coding challenge that i made to test my skill on Vue 2 and some basic configuration with Nuxt and Bulma.
 
 I started this project after watching the Vue Mastery courses and [Chris Fritz video on Visualizations using SVG, Canvas, and WebGL in Vue](https://youtu.be/a2jhqi3_Cdg?t=46).
+
+Deploy on [GitHub Pages](https://mathieu-ducrot.github.io/game-of-life/) !
 
 ## Documentation
 

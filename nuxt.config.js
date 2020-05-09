@@ -1,5 +1,20 @@
+/*
+ * nuxt.config.js
+ * https://nuxtjs.org/faq/github-pages/#deploying-to-github-pages-for-repository
+ */
+// only add `router.base = '/<game-of-life>/'` if `DEPLOY_ENV` is `GH_PAGES`
+const routerBase =
+  process.env.DEPLOY_ENV === 'GH_PAGES'
+    ? {
+        router: {
+          base: '/<game-of-life>/'
+        }
+      }
+    : {}
+
 export default {
   mode: 'universal',
+  ...routerBase,
   /*
    ** Headers of the page
    */

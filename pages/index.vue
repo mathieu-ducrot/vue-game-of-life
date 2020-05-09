@@ -10,7 +10,7 @@
         </div>
         <p class="subtitle">
           A <strong class="has-text-primary">VueJS</strong> implementation of
-          the Game of life cellular automaton
+          the Game of Life cellular automaton
         </p>
       </div>
     </div>

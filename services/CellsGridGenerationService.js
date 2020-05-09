@@ -58,7 +58,7 @@ export default {
           nbLivingCells++
           nbCellBirth++
         } else if (crtCellState === 1 && (nbNeighbors < 2 || nbNeighbors > 3)) {
-          // Rule 3 : All other live cells die in the next generation. (death by underpopulation or overpopulation)
+          // Rule 3 : All other live cells die in the next generation. (death by subpopulation or overcrowding)
           nextGridState[x][y] = 0
           nbCellDeath++
         } else {

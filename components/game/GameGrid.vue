@@ -139,7 +139,7 @@ export default {
         this.canvasContext.fillStyle = 'black'
         this.canvasContext.font = '13px IBM Plex Sans, Arial'
         this.canvasContext.fillText(
-          (1000 / deltaTimeToDraw).toFixed(1) + ' average fps per second',
+          (1000 / deltaTimeToDraw).toFixed(1) + ' average fps',
           0,
           this.gridHeight + 13
         )

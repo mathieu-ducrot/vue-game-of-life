@@ -31,6 +31,18 @@
             A <b>dead cell</b> is represented by a white square, in contrast a
             <b>living cell</b> is represented by a colored square.
           </p>
+          <div class="box is-radiusless demo-grid is-marginless">
+            <game-grid
+              :cells-per-row="cellsPerRow"
+              :cells-per-column="cellsPerColumn"
+            ></game-grid>
+          </div>
+          <p>
+            <i>
+              Example of a grid with 8 deads cell and 1 living cell in the
+              center.
+            </i>
+          </p>
           <p>
             The only interaction of the "player", or the user, is to define the
             <b>starting state of the grid</b>.<br />
@@ -54,13 +66,13 @@
               <b>stable state of life</b>
             </li>
             <li>
-              A dead cell with exactly 3 neighbors becomes alive. Represents the
-              <b>birth</b> of a cell
-            </li>
-            <li>
               A living cell with less than 2 neighbors or more than 3 neighbors
               dies. Represents cell
               <b>death by subpopulation or overcrowding</b>
+            </li>
+            <li>
+              A dead cell with exactly 3 neighbors becomes alive. Represents the
+              <b>birth</b> of a cell
             </li>
             <li>
               In all other cases a dead cell remains dead. Represents a
@@ -120,8 +132,34 @@
   </div>
 </template>
 
+<script>
+import GameGrid from '@/components/game/GameGrid'
+
+export default {
+  name: 'GamePage',
+  components: {
+    GameGrid
+  },
+  data() {
+    return {
+      cellsPerRow: 3,
+      cellsPerColumn: 3
+    }
+  },
+  mounted() {
+    this.$store.dispatch('cells-grid/toggleCellState', {
+      x: 1,
+      y: 1
+    })
+  }
+}
+</script>
+
 <style scoped lang="scss">
 .title {
   margin-bottom: 2rem;
+}
+.demo-grid {
+  max-width: 108px;
 }
 </style>

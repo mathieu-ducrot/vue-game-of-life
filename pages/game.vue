@@ -6,6 +6,7 @@
         <game-grid
           :cells-per-row="cellsPerRow"
           :cells-per-column="cellsPerColumn"
+          :show-fps="true"
         ></game-grid>
       </div>
       <game-control-panel></game-control-panel>
@@ -30,6 +31,9 @@ export default {
       cellsPerRow: 60,
       cellsPerColumn: 25
     }
+  },
+  mounted() {
+    this.$store.dispatch('cells-grid/randomizeGridState')
   }
 }
 </script>

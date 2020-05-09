@@ -60,9 +60,10 @@ export const mutations = {
 }
 
 export const actions = {
-  initGridState({ commit }, gridData) {
+  initGridState({ commit, dispatch }, gridData) {
     commit('SET_CELLS_PER_ROW', gridData.cellsPerRow)
     commit('SET_CELLS_PER_COLUMN', gridData.cellsPerColumn)
+    dispatch('clearGridState')
   },
   randomizeGridState({ commit, state }) {
     const randomizeGrid = CellsGridGenerationService.getRandomizedGrid(

@@ -4,7 +4,7 @@
       v-show="!cellsGrid.editorMode"
       ref="canvas-grid"
       :width="gridWidth"
-      :height="gridHeight + cellResolution"
+      :height="showFps === true ? gridHeight + cellResolution : gridHeight"
     ></canvas>
     <div v-if="cellsGrid.editorMode">
       <div class="css-grid">
@@ -45,6 +45,10 @@ export default {
     cellsPerColumn: {
       type: Number,
       default: 20
+    },
+    showFps: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -83,7 +87,6 @@ export default {
       cellsPerRow: this.cellsPerRow,
       cellsPerColumn: this.cellsPerColumn
     })
-    this.$store.dispatch('cells-grid/randomizeGridState')
     this.timeLastDraw = performance.now()
     this.timeLastDrawFps = performance.now()
     this.initDrawing()

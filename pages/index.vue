@@ -12,6 +12,12 @@
           A <strong class="has-text-primary">VueJS</strong> implementation of
           the Game of Life cellular automaton
         </p>
+        <nuxt-link class="button is-medium is-link" :to="{ name: 'game' }">
+          <span>Get Started </span>
+          <span class="icon">
+            <i class="fas fa-play"></i>
+          </span>
+        </nuxt-link>
       </div>
     </div>
     <div class="hero-foot">

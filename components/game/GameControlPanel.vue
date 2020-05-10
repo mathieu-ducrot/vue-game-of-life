@@ -58,7 +58,8 @@
         :disabled="cellsGrid.editorMode"
         @click="editorMode()"
       >
-        <span class="icon"><i class="fas fa-edit fa-lg"></i>
+        <span class="icon">
+          <i class="fas fa-edit fa-lg"></i>
         </span>
         <span>Editor Mode</span>
       </button>

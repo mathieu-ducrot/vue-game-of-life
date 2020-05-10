@@ -1,0 +1,11 @@
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - js-scrutinizer-run
+
+checks:
+  javascript:
+    no_var: true
+    eqeqeq: true

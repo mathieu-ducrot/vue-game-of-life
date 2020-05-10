@@ -4,6 +4,7 @@ build:
       tests:
         override:
           - js-scrutinizer-run
+          - eslint-run "components/**"
 
 checks:
   javascript:

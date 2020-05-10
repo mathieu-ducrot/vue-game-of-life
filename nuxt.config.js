@@ -15,6 +15,9 @@ const routerBase =
 export default {
   mode: 'universal',
   ...routerBase,
+  generate: {
+    fallback: '404.html'
+  },
   /*
    ** Headers of the page
    */

@@ -15,6 +15,7 @@ install:
   - yarn generate:gh-pages
 
 script:
+  - yarn lint
   - yarn test
 
 deploy:

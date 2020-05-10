@@ -1,0 +1,17 @@
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - js-scrutinizer-run
+          - eslint-run --ext .js,.vue --ignore-path .gitignore .
+
+checks:
+  javascript:
+    no_var: true
+    eqeqeq: true
+    no_else_return: true
+    no_alert: true
+    no_implicit_undefined_return: true
+    no_loop_var_assign: true
+    no_param_assign: true

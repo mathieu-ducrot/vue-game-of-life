@@ -1,6 +1,7 @@
 <h1 align="center">Game of Life / Vue.js Implementation</h1>
 
 [![Build Status](https://api.travis-ci.org/mathieu-ducrot/game-of-life.png?branch=master)](https://travis-ci.org/mathieu-ducrot/game-of-life)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mathieu-ducrot/game-of-life/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mathieu-ducrot/game-of-life/?branch=master)
 
 > The Game of Life from John Conway implemented with Vue.js
 

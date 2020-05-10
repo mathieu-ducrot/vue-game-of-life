@@ -43,8 +43,7 @@ export default {
 
     for (const [x, column] of cellsGrid.entries()) {
       nextGridState[x] = []
-      // eslint-disable-next-line no-unused-vars
-      for (const [y, value] of column.entries()) {
+      for (let y = 0; y < column.length; y++) {
         const nbNeighbors = this.getNbNeighbors(cellsGrid, x, y)
         const crtCellState = cellsGrid[x][y]
         /*  THE EVOLUTION RULES */
@@ -81,16 +80,32 @@ export default {
     let toReturn = 0
 
     if (cellsGrid[x - 1]) {
-      if (cellsGrid[x - 1][y - 1]) toReturn++
-      if (cellsGrid[x - 1][y]) toReturn++
-      if (cellsGrid[x - 1][y + 1]) toReturn++
+      if (cellsGrid[x - 1][y - 1]) {
+        toReturn++
+      }
+      if (cellsGrid[x - 1][y]) {
+        toReturn++
+      }
+      if (cellsGrid[x - 1][y + 1]) {
+        toReturn++
+      }
     }
-    if (cellsGrid[x][y - 1]) toReturn++
-    if (cellsGrid[x][y + 1]) toReturn++
+    if (cellsGrid[x][y - 1]) {
+      toReturn++
+    }
+    if (cellsGrid[x][y + 1]) {
+      toReturn++
+    }
     if (cellsGrid[x + 1]) {
-      if (cellsGrid[x + 1][y - 1]) toReturn++
-      if (cellsGrid[x + 1][y]) toReturn++
-      if (cellsGrid[x + 1][y + 1]) toReturn++
+      if (cellsGrid[x + 1][y - 1]) {
+        toReturn++
+      }
+      if (cellsGrid[x + 1][y]) {
+        toReturn++
+      }
+      if (cellsGrid[x + 1][y + 1]) {
+        toReturn++
+      }
     }
 
     return toReturn

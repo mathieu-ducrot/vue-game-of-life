@@ -127,6 +127,13 @@
             </div>
           </div>
         </div>
+        <hr />
+        <nuxt-link class="button is-primary" :to="{ name: 'game' }">
+          <span>Try it</span>
+          <span class="icon">
+            <i class="fas fa-exclamation"></i>
+          </span>
+        </nuxt-link>
       </div>
     </section>
   </div>

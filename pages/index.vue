@@ -1,9 +1,15 @@
 <template>
   <section class="hero is-fullheight-with-navbar">
+    <game-grid
+      class="grid"
+      :cells-per-row="cellsPerRow"
+      :cells-per-column="cellsPerColumn"
+      :skip-dead-cell-render="true"
+    ></game-grid>
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="title is-1 is-spaced is-uppercase">
-          <span class="has-text-primary">
+          <span class="has-text-primary has-white-background">
             <i class="fas fa-th"></i>
           </span>
           <span>Conway's Game of Life</span>
@@ -12,12 +18,20 @@
           A <strong class="has-text-primary">VueJS</strong> implementation of
           the Game of Life cellular automaton
         </p>
-        <nuxt-link class="button is-medium is-link" :to="{ name: 'game' }">
-          <span>Get Started </span>
-          <span class="icon">
-            <i class="fas fa-play"></i>
-          </span>
-        </nuxt-link>
+        <div class="buttons">
+          <nuxt-link class="button is-link" :to="{ name: 'rules' }">
+            <span>What is it</span>
+            <span class="icon">
+              <i class="fas fa-question"></i>
+            </span>
+          </nuxt-link>
+          <nuxt-link class="button is-link" :to="{ name: 'game' }">
+            <span>Get Started </span>
+            <span class="icon">
+              <i class="fas fa-play"></i>
+            </span>
+          </nuxt-link>
+        </div>
       </div>
     </div>
     <div class="hero-foot">
@@ -29,20 +43,39 @@
 <script>
 // todo check to put the FooterApp on the default layout and still being fixed at the bottom
 import FooterApp from '@/components/layouts/FooterApp'
+import GameGrid from '@/components/game/GameGrid'
 
 export default {
   components: {
-    FooterApp
+    FooterApp,
+    GameGrid
+  },
+  data() {
+    return {
+      cellsPerRow: 50, // todo dynamic calculate the number of cells based on the viewport resolution
+      cellsPerColumn: 22,
+      timerId: 0,
+      timeoutSpeed: 600
+    }
+  },
+  mounted() {
+    this.$store.dispatch('cells-grid/randomizeGridState')
+    this.timerId = setTimeout(
+      function tick() {
+        this.$store.dispatch('cells-grid/nextGridState')
+        this.timerId = setTimeout(tick.bind(this), this.timeoutSpeed)
+      }.bind(this),
+      this.timeoutSpeed
+    )
+  },
+  beforeDestroy() {
+    // Prevent timeout to still be running on switch pages
+    clearTimeout(this.timerId)
   }
 }
 </script>
 
 <style scoped lang="scss">
-html {
-  /* Hide the useless scrollbar */
-  overflow-y: auto;
-}
-
 .title {
   font-family: 'IBM Plex Serif', 'Helvetica', serif;
   font-weight: inherit;
@@ -50,5 +83,14 @@ html {
     border-top: 2px solid;
     border-bottom: 2px solid;
   }
+}
+.buttons {
+  justify-content: center;
+}
+.grid {
+  position: absolute;
+}
+.hero-foot {
+  z-index: 100;
 }
 </style>

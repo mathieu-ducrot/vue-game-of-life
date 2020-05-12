@@ -18,7 +18,15 @@ export default {
       type: Number,
       default: 20
     },
+    livingCellFillStyle: {
+      type: String,
+      default: '#82ded2'
+    },
     showFps: {
+      type: Boolean,
+      default: false
+    },
+    skipDeadCellRender: {
       type: Boolean,
       default: false
     }
@@ -28,7 +36,6 @@ export default {
       timeLastDraw: 0,
       timeLastDrawFps: 0,
       rafId: 0, // requestAnimationFrameId
-      livingCellFillStyle: '#82ded2',
       deadCellFillStyle: '#fff',
       cellResolution: 22,
       cellBorderSize: 2
@@ -67,26 +74,40 @@ export default {
   },
   methods: {
     initDrawing() {
-      this.canvasContext.fillStyle = 'grey'
-      this.canvasContext.fillRect(0, 0, this.gridWidth, this.gridHeight)
+      if (this.skipDeadCellRender === false) {
+        this.canvasContext.fillStyle = 'grey'
+        this.canvasContext.fillRect(0, 0, this.gridWidth, this.gridHeight)
+      }
     },
     drawCellsGrid() {
+      if (this.skipDeadCellRender) {
+        // since dead cell arn't render we clear the canvas instead by filling with the default background color
+        this.canvasContext.fillStyle = '#e7e2e8'
+        this.canvasContext.fillRect(0, 0, this.gridWidth, this.gridHeight)
+      }
+
       // window.console.log('drawing process')
       for (let x = 0; x < this.cellsPerRow; x++) {
         for (let y = 0; y < this.cellsPerColumn; y++) {
           // Draw a living cell base on the cells grid current state
-          if (this.$store.getters['cells-grid/getCellState'](x, y)) {
+          const cellState = this.$store.getters['cells-grid/getCellState'](x, y)
+          if (cellState) {
             this.canvasContext.fillStyle = this.livingCellFillStyle
           } else {
             this.canvasContext.fillStyle = this.deadCellFillStyle
           }
 
-          this.canvasContext.fillRect(
-            x * this.cellResolution + this.cellBorderSize,
-            y * this.cellResolution + this.cellBorderSize,
-            this.cellResolution - this.cellBorderSize,
-            this.cellResolution - this.cellBorderSize
-          )
+          if (
+            this.skipDeadCellRender === false ||
+            (this.skipDeadCellRender && cellState)
+          ) {
+            this.canvasContext.fillRect(
+              x * this.cellResolution + this.cellBorderSize,
+              y * this.cellResolution + this.cellBorderSize,
+              this.cellResolution - this.cellBorderSize,
+              this.cellResolution - this.cellBorderSize
+            )
+          }
         }
       }
 

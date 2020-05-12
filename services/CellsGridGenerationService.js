@@ -20,7 +20,10 @@ export default {
     for (let x = 0; x < cellsPerRow; x++) {
       const row = []
       for (let y = 0; y < cellsPerColumn; y++) {
-        const cellState = Math.round(Math.random())
+        let cellState = 0
+        if (Math.random() >= 0.7) {
+          cellState = 1
+        }
         if (cellState === 1) {
           nbCellBirth++
         }

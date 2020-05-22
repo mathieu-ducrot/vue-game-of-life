@@ -8,7 +8,7 @@
         @click="launchGridEvolution()"
       >
         <span class="icon">
-          <i class="far fa-play-circle fa-lg"></i>
+          <fa-icon class="fa-lg" :icon="faPlayCircle" />
         </span>
         <span>Launch evolution</span>
       </button>
@@ -19,14 +19,14 @@
         @click="stopGridEvolution()"
       >
         <span class="icon">
-          <i class="far fa-stop-circle fa-lg"></i>
+          <fa-icon class="fa-lg" :icon="faStopCircle" />
         </span>
         <span>Stop</span>
       </button>
 
       <button class="button is-info is-outlined" @click="nextGridEvolution()">
         <span class="icon">
-          <i class="fas fa-step-forward"></i>
+          <fa-icon :icon="faStepForward" />
         </span>
         <span>Next</span>
       </button>
@@ -36,7 +36,7 @@
         @click="slownDownGridEvolution()"
       >
         <span class="icon">
-          <i class="fas fa-angle-double-down"></i>
+          <fa-icon :icon="faAngleDoubleDown" />
         </span>
         <span>Slow down</span>
       </button>
@@ -46,7 +46,7 @@
         @click="speedUpGridEvolution()"
       >
         <span class="icon">
-          <i class="fas fa-angle-double-up"></i>
+          <fa-icon :icon="faAngleDoubleUp" />
         </span>
         <span>Speed up</span>
       </button>
@@ -59,20 +59,20 @@
         @click="editorMode()"
       >
         <span class="icon">
-          <i class="fas fa-edit fa-lg"></i>
+          <fa-icon :icon="faEdit" />
         </span>
         <span>Editor Mode</span>
       </button>
 
       <button class="button is-link is-outlined" @click="randomizeGridState()">
         <span class="icon">
-          <i class="fas fa-dice fa-lg"></i>
+          <fa-icon class="fa-lg" :icon="faDice" />
         </span>
         <span>Randomize state</span>
       </button>
       <button class="button is-danger" @click="clearGridState()">
         <span class="icon">
-          <i class="fas fa-trash-alt"></i>
+          <fa-icon :icon="faTrashAlt" />
         </span>
         <span>Clear the grid</span>
       </button>
@@ -81,6 +81,15 @@
 </template>
 
 <script>
+import {
+  faStepForward,
+  faAngleDoubleDown,
+  faAngleDoubleUp,
+  faEdit,
+  faDice,
+  faTrashAlt
+} from '@fortawesome/free-solid-svg-icons'
+import { faPlayCircle, faStopCircle } from '@fortawesome/free-regular-svg-icons'
 import { mapState } from 'vuex'
 
 export default {
@@ -127,6 +136,30 @@ export default {
     }
   },
   computed: {
+    faPlayCircle() {
+      return faPlayCircle
+    },
+    faStopCircle() {
+      return faStopCircle
+    },
+    faStepForward() {
+      return faStepForward
+    },
+    faAngleDoubleDown() {
+      return faAngleDoubleDown
+    },
+    faAngleDoubleUp() {
+      return faAngleDoubleUp
+    },
+    faEdit() {
+      return faEdit
+    },
+    faDice() {
+      return faDice
+    },
+    faTrashAlt() {
+      return faTrashAlt
+    },
     ...mapState({
       cellsGrid: (state) => state['cells-grid']
     })

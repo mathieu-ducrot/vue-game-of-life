@@ -16,13 +16,13 @@
     <div class="level-right">
       <div class="level-item">
         <a
-          class="button is-primary"
+          class="button is-link"
           href="https://github.com/mathieu-ducrot/game-of-life"
           target="_blank"
           rel="noopener"
         >
           <span class="icon">
-            <i class="fab fa-github fa-lg"></i>
+            <fa-icon class="fa-lg" :icon="faGithub" />
           </span>
           <span>mathieu-ducrot</span>
         </a>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+
 export default {
   name: 'FooterApp',
   data() {
@@ -53,6 +55,11 @@ export default {
           alt: 'Bulma Logo'
         }
       ]
+    }
+  },
+  computed: {
+    faGithub() {
+      return faGithub
     }
   }
 }

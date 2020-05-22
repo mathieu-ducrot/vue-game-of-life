@@ -3,7 +3,7 @@
     <div class="container">
       <div class="navbar-brand">
         <nuxt-link to="/" class="navbar-item">
-          <i class="fas fa-th fa-2x" />
+          <fa-icon class="fa-2x" :icon="faTh" />
         </nuxt-link>
       </div>
       <div class="navbar-menu">
@@ -16,7 +16,7 @@
             :to="{ name: link.to }"
           >
             <span class="icon">
-              <i :class="link.icon"></i>
+              <fa-icon :icon="link.icon" />
             </span>
             <span>{{ link.label }}</span>
           </nuxt-link>
@@ -27,7 +27,7 @@
             rel="noopener"
           >
             <span class="icon">
-              <i class="fab fa-github"></i>
+              <fa-icon :icon="faGithub" />
             </span>
             <span>GitHub</span>
           </a>
@@ -38,6 +38,14 @@
 </template>
 
 <script>
+import {
+  faTh,
+  faHome,
+  faChessBoard,
+  faBook
+} from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+
 export default {
   name: 'HeaderApp',
   data() {
@@ -45,20 +53,28 @@ export default {
       appLinks: [
         {
           label: 'Home',
-          icon: 'fas fa-home',
+          icon: faHome,
           to: 'index'
         },
         {
           label: 'The Game',
-          icon: 'fas fa-chess-board',
+          icon: faChessBoard,
           to: 'game'
         },
         {
           label: 'Rules',
-          icon: 'fas fa-book',
+          icon: faBook,
           to: 'rules'
         }
       ]
+    }
+  },
+  computed: {
+    faTh() {
+      return faTh
+    },
+    faGithub() {
+      return faGithub
     }
   }
 }

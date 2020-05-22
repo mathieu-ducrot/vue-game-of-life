@@ -14,7 +14,7 @@
           class="title is-1 is-spaced is-uppercase"
         >
           <span class="has-text-primary has-white-background">
-            <i class="fas fa-th"></i>
+            <fa-icon :icon="faTh" />
           </span>
           <span>
             <span
@@ -36,13 +36,13 @@
           <nuxt-link class="button is-link" :to="{ name: 'rules' }">
             <span>What is it</span>
             <span class="icon">
-              <i class="fas fa-question"></i>
+              <fa-icon :icon="faQuestion" />
             </span>
           </nuxt-link>
           <nuxt-link class="button is-link" :to="{ name: 'game' }">
             <span>Get Started </span>
             <span class="icon">
-              <i class="fas fa-play"></i>
+              <fa-icon :icon="faPlay" />
             </span>
           </nuxt-link>
         </div>
@@ -56,6 +56,7 @@
 
 <script>
 // todo check to put the FooterApp on the default layout and still being fixed at the bottom
+import { faTh, faQuestion, faPlay } from '@fortawesome/free-solid-svg-icons'
 import FooterApp from '@/components/layouts/FooterApp'
 import GameGrid from '@/components/game/GameGrid'
 
@@ -70,6 +71,17 @@ export default {
       cellsPerColumn: 22,
       timerId: 0,
       timeoutSpeed: 600
+    }
+  },
+  computed: {
+    faTh() {
+      return faTh
+    },
+    faQuestion() {
+      return faQuestion
+    },
+    faPlay() {
+      return faPlay
     }
   },
   mounted() {
@@ -119,5 +131,8 @@ export default {
 }
 .hero-foot {
   z-index: 100;
+}
+.has-text-primary {
+  color: rgb(16, 135, 117) !important;
 }
 </style>

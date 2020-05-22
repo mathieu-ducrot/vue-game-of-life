@@ -139,7 +139,7 @@
         <nuxt-link class="button is-primary" :to="{ name: 'game' }">
           <span>Try it</span>
           <span class="icon">
-            <i class="fas fa-exclamation"></i>
+            <fa-icon :icon="faExclamation" />
           </span>
         </nuxt-link>
       </div>
@@ -148,6 +148,7 @@
 </template>
 
 <script>
+import { faExclamation } from '@fortawesome/free-solid-svg-icons'
 import GameGrid from '@/components/game/GameGrid'
 
 export default {
@@ -159,6 +160,11 @@ export default {
     return {
       cellsPerRow: 3,
       cellsPerColumn: 3
+    }
+  },
+  computed: {
+    faExclamation() {
+      return faExclamation
     }
   },
   mounted() {

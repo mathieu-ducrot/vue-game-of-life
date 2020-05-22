@@ -136,7 +136,7 @@
           </div>
         </div>
         <hr />
-        <nuxt-link class="button is-primary" :to="{ name: 'game' }">
+        <nuxt-link class="button is-link" :to="{ name: 'game' }">
           <span>Try it</span>
           <span class="icon">
             <fa-icon :icon="faExclamation" />

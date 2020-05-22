@@ -3,5 +3,9 @@
 /* Import the rest of Bulma */
 @import '~bulma';
 
+@import 'typography';
 @import 'transitions';
 @import 'grid';
+
+// pages
+@import 'home';

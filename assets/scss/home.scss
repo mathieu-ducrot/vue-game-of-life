@@ -1,0 +1,16 @@
+.hero {
+  .title {
+    font-family: 'IBM Plex Serif', 'Helvetica', serif;
+    font-weight: inherit;
+    span:last-child {
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+    }
+  }
+  .buttons {
+    justify-content: center;
+  }
+  .hero-foot {
+    z-index: 100;
+  }
+}

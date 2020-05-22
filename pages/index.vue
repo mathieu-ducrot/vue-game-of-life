@@ -1,7 +1,7 @@
 <template>
   <section class="hero is-fullheight-with-navbar">
     <game-grid
-      class="grid"
+      class="home-grid"
       :cells-per-row="cellsPerRow"
       :cells-per-column="cellsPerColumn"
       :skip-dead-cell-render="true"
@@ -113,26 +113,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-.title {
-  font-family: 'IBM Plex Serif', 'Helvetica', serif;
-  font-weight: inherit;
-  span:last-child {
-    border-top: 2px solid;
-    border-bottom: 2px solid;
-  }
-}
-.buttons {
-  justify-content: center;
-}
-.grid {
-  position: absolute;
-}
-.hero-foot {
-  z-index: 100;
-}
-.has-text-primary {
-  color: rgb(16, 135, 117) !important;
-}
-</style>

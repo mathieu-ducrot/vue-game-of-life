@@ -39,7 +39,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: 'https://use.fontawesome.com/releases/v5.3.1/js/all.js'
+        content: 'https://game-of-life-in-vue-mathieu-ducrot.netlify.app'
       },
       {
         hid: 'og:title',
@@ -64,8 +64,7 @@ export default {
           'The Game of Life from John Conway implemented with Vue.js and render using the canvas html element.'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [{ src: 'https://use.fontawesome.com/releases/v5.3.1/js/all.js' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   noscript: [
     { innerHTML: 'This website requires JavaScript to work properly.' }
@@ -87,7 +86,14 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    [
+      '@nuxtjs/fontawesome',
+      {
+        component: 'fa',
+        suffix: true
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules

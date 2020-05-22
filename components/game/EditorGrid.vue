@@ -15,7 +15,7 @@
     </div>
     <p class="has-text-centered editor-info">
       <span class="icon">
-        <i class="fas fa-edit"></i>
+        <fa-icon :icon="faEdit" />
       </span>
       <span><b>Editor Mode :</b> Click on a cell to change his state.</span>
     </p>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { mapState } from 'vuex'
 import GridCell from '@/components/game/GridCell'
 
@@ -42,6 +43,9 @@ export default {
     },
     cellsPerColumn() {
       return this.cellsGrid.cellsPerColumn
+    },
+    faEdit() {
+      return faEdit
     },
     ...mapState({
       cellsGrid: (state) => state['cells-grid']

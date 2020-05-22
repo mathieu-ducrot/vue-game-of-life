@@ -1,6 +1,7 @@
 <template>
   <canvas
     ref="canvas-grid"
+    class="canvas-grid"
     :width="gridWidth"
     :height="showFps === true ? gridHeight + cellResolution : gridHeight"
   ></canvas>
@@ -141,9 +142,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-canvas {
-  width: 100%;
-}
-</style>

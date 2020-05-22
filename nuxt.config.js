@@ -22,19 +22,54 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - Game of Life with Vue.js',
+    htmlAttrs: {
+      lang: 'en'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content:
+          'The Game of Life from John Conway implemented with Vue.js and render using the canvas html element.'
+      },
+      { hid: 'og:type', name: 'og:type', content: 'website' },
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        content: 'https://use.fontawesome.com/releases/v5.3.1/js/all.js'
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Game of Life with Vue.js'
+      },
+      {
+        hid: 'og:site_name',
+        name: 'og:site_name',
+        content: 'Game of Life with Vue.js'
+      },
+      { hid: 'og:locale', name: 'og:locale', content: 'en' },
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: 'Game of Life with Vue.js'
+      },
+      {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content:
+          'The Game of Life from John Conway implemented with Vue.js and render using the canvas html element.'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [{ src: 'https://use.fontawesome.com/releases/v5.3.1/js/all.js' }]
   },
+  noscript: [
+    { innerHTML: 'This website requires JavaScript to work properly.' }
+  ],
   /*
    ** Customize the progress-bar color
    */
@@ -60,7 +95,25 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     // '@nuxtjs/bulma'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots'
   ],
+  sitemap: {
+    path: '/sitemap.xml', // sitemap location
+    hostname: 'https://game-of-life-in-vue-mathieu-ducrot.netlify.app/',
+    cacheTime: 1000 * 60 * 15,
+    gzip: true,
+    generate: false, // Generate a static version of the sitemap
+    routes: ['/', '/game', '/rules'].map((route) => ({
+      url: route,
+      changefreq: 'monthly',
+      priority: 1,
+      lastmodISO: new Date().toISOString().split('T')[0]
+    }))
+  },
+  robots: {
+    Sitemap: `https://game-of-life-in-vue-mathieu-ducrot.netlify.app/sitemap.xml`
+  },
   /*
    ** Build configuration
    */
@@ -71,6 +124,9 @@ export default {
           customProperties: false
         }
       }
+    },
+    filenames: {
+      img: 'img/[name]-[contenthash:7].[ext]'
     },
     /*
      ** You can extend webpack config here

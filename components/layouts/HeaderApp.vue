@@ -24,6 +24,7 @@
             class="navbar-item"
             href="https://github.com/mathieu-ducrot/game-of-life"
             target="_blank"
+            rel="noopener"
           >
             <span class="icon">
               <i class="fab fa-github"></i>

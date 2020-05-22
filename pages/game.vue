@@ -43,6 +43,19 @@ export default {
   },
   mounted() {
     this.$store.dispatch('cells-grid/randomizeGridState')
+  },
+  head() {
+    return {
+      title: 'The Game',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Experiment on how the cells will evolves by defining the initial state of the grid. Set it randomly or manually via the Editor Mode.'
+        }
+      ]
+    }
   }
 }
 </script>

@@ -5,22 +5,30 @@
         <div class="content">
           <h1 class="title">Game of Life's Rules</h1>
           <h2>Description</h2>
-          <p>
+          <p itemscope itemtype="http://schema.org/CreativeWork">
             The
             <a
               href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
               target="_blank"
+              rel="noopener"
+              class="has-text-primary"
             >
-              Game of Life
+              <span itemprop="name">Game of Life</span>
             </a>
             is a <strong>cellular automaton</strong> created by
             <a
               href="https://en.wikipedia.org/wiki/John_Horton_Conway"
               target="_blank"
+              rel="noopener"
+              class="has-text-primary"
+              itemprop="creator"
+              itemscope
+              itemtype="https://schema.org/Person"
             >
-              John Horton Conway
+              <span itemprop="givenName">John Horton</span>
+              <span itemprop="familyName">Conway</span>
             </a>
-            in 1970. <br />
+            in <span itemprop="dateCreated">1970</span>. <br />
             This simulation, which is not really a game, allows you to see the
             evolution of the state of several cells (dead or alive) according to
             a set of simple rules.
@@ -158,12 +166,19 @@ export default {
       x: 1,
       y: 1
     })
+  },
+  head() {
+    return {
+      title: 'Rules',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'The goal of the Game of Life is to watch how cells, represented by squares on a grid, evolve. The rules are center about the state of their neighbors.'
+        }
+      ]
+    }
   }
 }
 </script>
-
-<style scoped lang="scss">
-.demo-grid {
-  max-width: 108px;
-}
-</style>

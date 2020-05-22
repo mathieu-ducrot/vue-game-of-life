@@ -3,9 +3,12 @@
     <div class="level-left">
       <p class="level-item"><strong>Build with</strong></p>
       <div v-for="(dep, index) in dependencies" :key="index" class="level-item">
-        <a :href="dep.link" target="_blank">
+        <a :href="dep.link" target="_blank" rel="noopener">
           <figure class="image is-32x32">
-            <img :src="require('assets/images/logo/' + dep.logo)" />
+            <img
+              :src="require('assets/images/logo/' + dep.logo)"
+              :alt="dep.alt"
+            />
           </figure>
         </a>
       </div>
@@ -16,6 +19,7 @@
           class="button is-primary"
           href="https://github.com/mathieu-ducrot/game-of-life"
           target="_blank"
+          rel="noopener"
         >
           <span class="icon">
             <i class="fab fa-github fa-lg"></i>
@@ -35,15 +39,18 @@ export default {
       dependencies: [
         {
           link: 'https://vuejs.org/',
-          logo: 'vue.png'
+          logo: 'vue.png',
+          alt: 'Vue.js Logo'
         },
         {
           link: 'https://fr.nuxtjs.org/',
-          logo: 'nuxt.svg'
+          logo: 'nuxt.svg',
+          alt: 'Nuxt.js Logo'
         },
         {
           link: 'https://bulma.io/',
-          logo: 'bulma.png'
+          logo: 'bulma.png',
+          alt: 'Bulma Logo'
         }
       ]
     }

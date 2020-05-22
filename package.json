@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/robots": "^2.4.2",
+    "@nuxtjs/sitemap": "^2.3.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

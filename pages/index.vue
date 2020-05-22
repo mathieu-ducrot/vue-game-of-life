@@ -8,16 +8,30 @@
     ></game-grid>
     <div class="hero-body">
       <div class="container has-text-centered">
-        <div class="title is-1 is-spaced is-uppercase">
+        <h1
+          itemscope
+          itemtype="http://schema.org/CreativeWork"
+          class="title is-1 is-spaced is-uppercase"
+        >
           <span class="has-text-primary has-white-background">
             <i class="fas fa-th"></i>
           </span>
-          <span>Conway's Game of Life</span>
-        </div>
-        <p class="subtitle">
-          A <strong class="has-text-primary">VueJS</strong> implementation of
-          the Game of Life cellular automaton
-        </p>
+          <span>
+            <span
+              itemprop="creator"
+              itemscope
+              itemtype="https://schema.org/Person"
+            >
+              <span itemprop="familyName">Conway</span> </span
+            >'s
+            <span itemprop="name">Game of Life</span>
+          </span>
+        </h1>
+        <h2 class="subtitle">
+          A
+          <strong class="has-text-primary">VueJS</strong>
+          implementation of the Game of Life cellular automaton
+        </h2>
         <div class="buttons">
           <nuxt-link class="button is-link" :to="{ name: 'rules' }">
             <span>What is it</span>
@@ -71,6 +85,19 @@ export default {
   beforeDestroy() {
     // Prevent timeout to still be running on switch pages
     clearTimeout(this.timerId)
+  },
+  head() {
+    return {
+      title: 'Homepage',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            "Hi, i'm Mathieu Ducrot and you are watching my project on coding the Conway's Game of Life with Vue.js."
+        }
+      ]
+    }
   }
 }
 </script>

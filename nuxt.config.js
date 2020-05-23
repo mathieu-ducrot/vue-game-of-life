@@ -76,31 +76,31 @@ export default {
   /*
    ** Global CSS
    */
-  css: [{ src: '~/assets/scss/main.scss', lang: 'scss' }],
+  css: [
+    { src: '~/assets/scss/main.scss', lang: 'scss' },
+    // be sure to load the fontawesome-svg-core last or you could have loading font issue
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/ga.js', mode: 'client' }],
+  plugins: [
+    { src: '~plugins/ga.js', mode: 'client' },
+    '~/plugins/fontawesome.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    [
-      '@nuxtjs/fontawesome',
-      {
-        component: 'fa',
-        suffix: true
-      }
-    ]
+    '@nuxtjs/eslint-module'
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    // '@nuxtjs/bulma'
+    // '@nuxtjs/bulma' instead we load our main.scss in css config and override some values
     '@nuxtjs/sitemap',
     '@nuxtjs/robots'
   ],

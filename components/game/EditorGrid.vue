@@ -15,15 +15,16 @@
     </div>
     <p class="has-text-centered editor-info">
       <span class="icon">
-        <fa-icon :icon="faEdit" />
+        <fa-icon :icon="['fas', 'edit']"></fa-icon>
       </span>
       <span><b>Editor Mode :</b> Click on a cell to change his state.</span>
     </p>
+    <!-- Uncomment the follwing line when testing pattern -->
+    <!-- <div>{{ $store.getters['cells-grid/getLivingCellPositions'] }}</div>-->
   </div>
 </template>
 
 <script>
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { mapState } from 'vuex'
 import GridCell from '@/components/game/GridCell'
 
@@ -43,9 +44,6 @@ export default {
     },
     cellsPerColumn() {
       return this.cellsGrid.cellsPerColumn
-    },
-    faEdit() {
-      return faEdit
     },
     ...mapState({
       cellsGrid: (state) => state['cells-grid']

@@ -1,39 +1,51 @@
 <template>
   <div class="level">
     <div class="level-left">
-      <p class="level-item"><strong>Build with</strong></p>
-      <div v-for="(dep, index) in dependencies" :key="index" class="level-item">
-        <a :href="dep.link" target="_blank" rel="noopener">
-          <figure class="image is-32x32">
-            <img
-              :src="require('assets/images/logo/' + dep.logo)"
-              :alt="dep.alt"
-            />
-          </figure>
-        </a>
+      <div class="level-item">
+        <span><strong>Build with</strong></span>
+        <span v-for="(dep, index) in dependencies" :key="index">
+          <a :href="dep.link" target="_blank" rel="noopener">
+            <figure class="image is-32x32">
+              <img
+                :src="require('assets/images/logo/' + dep.logo)"
+                :alt="dep.alt"
+              />
+            </figure>
+          </a>
+        </span>
       </div>
     </div>
     <div class="level-right">
       <div class="level-item">
-        <a
-          class="button is-link"
-          href="https://github.com/mathieu-ducrot/game-of-life"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="icon">
-            <fa-icon class="fa-lg" :icon="faGithub" />
-          </span>
-          <span>mathieu-ducrot</span>
-        </a>
+        <div class=" buttons">
+          <a
+            class="button is-link"
+            href="https://github.com/mathieu-ducrot/game-of-life"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="icon">
+              <fa-icon class="fa-lg" :icon="['fab', 'github']"></fa-icon>
+            </span>
+            <span>mathieu-ducrot</span>
+          </a>
+          <a
+            class="button is-link"
+            href="https://www.linkedin.com/in/mathieu-ducrot-sf-vue/"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="icon">
+              <fa-icon class="fa-lg" :icon="['fab', 'linkedin']"></fa-icon>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
-
 export default {
   name: 'FooterApp',
   data() {
@@ -56,17 +68,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    faGithub() {
-      return faGithub
-    }
   }
 }
 </script>
-
-<style scoped>
-.level {
-  padding: 0 30px 20px 30px;
-}
-</style>

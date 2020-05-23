@@ -1,16 +1,18 @@
 <template>
   <div class="level">
     <div class="level-left">
-      <p class="level-item"><strong>Build with</strong></p>
-      <div v-for="(dep, index) in dependencies" :key="index" class="level-item">
-        <a :href="dep.link" target="_blank" rel="noopener">
-          <figure class="image is-32x32">
-            <img
-              :src="require('assets/images/logo/' + dep.logo)"
-              :alt="dep.alt"
-            />
-          </figure>
-        </a>
+      <div class="level-item">
+        <span><strong>Build with</strong></span>
+        <span v-for="(dep, index) in dependencies" :key="index">
+          <a :href="dep.link" target="_blank" rel="noopener">
+            <figure class="image is-32x32">
+              <img
+                :src="require('assets/images/logo/' + dep.logo)"
+                :alt="dep.alt"
+              />
+            </figure>
+          </a>
+        </span>
       </div>
     </div>
     <div class="level-right">
@@ -64,9 +66,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.level {
-  padding: 0 30px 20px 30px;
-}
-</style>

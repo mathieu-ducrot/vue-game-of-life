@@ -12,7 +12,6 @@ export default {
 
     return toReturn
   },
-  // todo add unit test
   getRandomizedGrid(cellsPerRow, cellsPerColumn) {
     const gridState = []
     let nbCellBirth = 0

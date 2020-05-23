@@ -1,17 +1,44 @@
 <template>
   <section class="section is-paddingless">
     <div class="container">
-      <game-data-panel></game-data-panel>
+      <game-data-panel
+        v-if="showCanvasErrorMessage === false"
+      ></game-data-panel>
       <div class="box is-radiusless">
         <game-grid
-          v-show="!editorMode"
+          v-show="!editorMode && showCanvasErrorMessage === false"
           :cells-per-row="cellsPerRow"
           :cells-per-column="cellsPerColumn"
           :show-fps="true"
+          @cant-use-canvas="toggleShowCanvasErrorMessage"
         ></game-grid>
-        <editor-grid v-if="editorMode"></editor-grid>
+        <editor-grid
+          v-if="editorMode && showCanvasErrorMessage === false"
+        ></editor-grid>
+        <div v-show="showCanvasErrorMessage" class="message is-danger">
+          <div class="message-body">
+            <p>
+              Sorry but it seems that
+              <b>your browser doesn't support canvas</b> and this HTML element
+              is required for this project to work properly.
+            </p>
+            <br />
+            <p>
+              Use the last version of
+              <a
+                href="https://www.google.fr/chrome/?brand=CHBD&gclid=EAIaIQobChMI9Ljes_PJ6QIVSvlRCh0nOQtyEAAYASAAEgIWp_D_BwE&gclsrc=aw.ds"
+                target="_blank"
+                rel="noopener"
+                >Chrome</a
+              >
+              and come back here!
+            </p>
+          </div>
+        </div>
       </div>
-      <game-control-panel></game-control-panel>
+      <game-control-panel
+        v-if="showCanvasErrorMessage === false"
+      ></game-control-panel>
     </div>
   </section>
 </template>
@@ -33,7 +60,8 @@ export default {
   data() {
     return {
       cellsPerRow: 60,
-      cellsPerColumn: 25
+      cellsPerColumn: 25,
+      showCanvasErrorMessage: false
     }
   },
   computed: {
@@ -42,7 +70,16 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch('cells-grid/initGridState', {
+      cellsPerRow: this.cellsPerRow,
+      cellsPerColumn: this.cellsPerColumn
+    })
     this.$store.dispatch('cells-grid/randomizeGridState')
+  },
+  methods: {
+    toggleShowCanvasErrorMessage() {
+      this.showCanvasErrorMessage = true
+    }
   },
   head() {
     return {

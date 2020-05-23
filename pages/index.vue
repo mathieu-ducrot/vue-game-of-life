@@ -4,6 +4,7 @@
       class="home-grid"
       :cells-per-row="cellsPerRow"
       :cells-per-column="cellsPerColumn"
+      :cell-resolution="cellResolution"
       :skip-dead-cell-render="true"
     ></game-grid>
     <div class="hero-body">
@@ -11,7 +12,7 @@
         <h1
           itemscope
           itemtype="http://schema.org/CreativeWork"
-          class="title is-1 is-spaced is-uppercase"
+          class="title is-size-1-desktop is-size-2-tablet is-size-3-mobile is-spaced is-uppercase"
         >
           <span class="has-text-primary has-white-background">
             <fa-icon :icon="faTh" />
@@ -55,20 +56,21 @@
 </template>
 
 <script>
-// todo check to put the FooterApp on the default layout and still being fixed at the bottom
 import { faTh, faQuestion, faPlay } from '@fortawesome/free-solid-svg-icons'
 import FooterApp from '@/components/layouts/FooterApp'
 import GameGrid from '@/components/game/GameGrid'
 
 export default {
+  name: 'HomePage',
   components: {
     FooterApp,
     GameGrid
   },
   data() {
     return {
-      cellsPerRow: 50, // todo dynamic calculate the number of cells based on the viewport resolution
-      cellsPerColumn: 22,
+      cellsPerRow: 0,
+      cellsPerColumn: 0,
+      cellResolution: 38,
       timerId: 0,
       timeoutSpeed: 600
     }
@@ -85,6 +87,17 @@ export default {
     }
   },
   mounted() {
+    // eslint-disable-next-line nuxt/no-globals-in-created
+    this.cellsPerRow = Math.floor(window.innerWidth / this.cellResolution)
+    // eslint-disable-next-line nuxt/no-globals-in-created
+    this.cellsPerColumn = Math.floor(
+      // subtract the size of the header + one cellResolution from the total height
+      (window.innerHeight - 90) / this.cellResolution
+    )
+    this.$store.dispatch('cells-grid/initGridState', {
+      cellsPerRow: this.cellsPerRow,
+      cellsPerColumn: this.cellsPerColumn
+    })
     this.$store.dispatch('cells-grid/randomizeGridState')
     this.timerId = setTimeout(
       function tick() {

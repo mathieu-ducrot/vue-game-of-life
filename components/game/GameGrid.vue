@@ -19,6 +19,10 @@ export default {
       type: Number,
       default: 20
     },
+    cellResolution: {
+      type: Number,
+      default: 22
+    },
     livingCellFillStyle: {
       type: String,
       default: '#82ded2'
@@ -38,7 +42,6 @@ export default {
       timeLastDrawFps: 0,
       rafId: 0, // requestAnimationFrameId
       deadCellFillStyle: '#fff',
-      cellResolution: 22,
       cellBorderSize: 2
     }
   },
@@ -54,20 +57,19 @@ export default {
       if (canvas.getContext) {
         return canvas.getContext('2d')
       } else {
-        // todo case when canvas is not supported
         return false
       }
     }
   },
   mounted() {
-    this.$store.dispatch('cells-grid/initGridState', {
-      cellsPerRow: this.cellsPerRow,
-      cellsPerColumn: this.cellsPerColumn
-    })
-    this.timeLastDraw = performance.now()
-    this.timeLastDrawFps = performance.now()
-    this.initDrawing()
-    this.drawCellsGrid()
+    if (this.canvasContext !== false) {
+      this.timeLastDraw = performance.now()
+      this.timeLastDrawFps = performance.now()
+      this.initDrawing()
+      this.drawCellsGrid()
+    } else {
+      this.$emit('cant-use-canvas')
+    }
   },
   beforeDestroy() {
     // Prevent timeout to still be running on switch pages

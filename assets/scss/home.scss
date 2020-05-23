@@ -12,5 +12,24 @@
   }
   .hero-foot {
     z-index: 100;
+    .level {
+      padding: 0 30px 20px 30px;
+      .level-left {
+        span + span {
+          margin-left: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $mobile) {
+  .hero {
+    .title {
+      span:last-child {
+        border-top: none !important;
+        border-bottom: none !important;
+      }
+    }
   }
 }

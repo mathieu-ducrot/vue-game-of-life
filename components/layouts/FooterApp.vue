@@ -24,7 +24,7 @@
           rel="noopener"
         >
           <span class="icon">
-            <fa-icon class="fa-lg" :icon="faGithub" />
+            <fa-icon class="fa-lg" :icon="['fab', 'github']"></fa-icon>
           </span>
           <span>mathieu-ducrot</span>
         </a>
@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
-
 export default {
   name: 'FooterApp',
   data() {
@@ -57,11 +55,6 @@ export default {
           alt: 'Bulma Logo'
         }
       ]
-    }
-  },
-  computed: {
-    faGithub() {
-      return faGithub
     }
   }
 }

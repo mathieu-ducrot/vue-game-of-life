@@ -15,7 +15,7 @@
           class="title is-size-1-desktop is-size-2-tablet is-size-3-mobile is-spaced is-uppercase"
         >
           <span class="has-text-primary has-white-background">
-            <fa-icon :icon="faTh" />
+            <fa-icon :icon="['fas', 'th']"></fa-icon>
           </span>
           <span>
             <span
@@ -37,13 +37,13 @@
           <nuxt-link class="button is-link" :to="{ name: 'rules' }">
             <span>What is it</span>
             <span class="icon">
-              <fa-icon :icon="faQuestion" />
+              <fa-icon :icon="['fas', 'question']"></fa-icon>
             </span>
           </nuxt-link>
           <nuxt-link class="button is-link" :to="{ name: 'game' }">
             <span>Get Started </span>
             <span class="icon">
-              <fa-icon :icon="faPlay" />
+              <fa-icon :icon="['fas', 'play']"></fa-icon>
             </span>
           </nuxt-link>
         </div>
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import { faTh, faQuestion, faPlay } from '@fortawesome/free-solid-svg-icons'
 import FooterApp from '@/components/layouts/FooterApp'
 import GameGrid from '@/components/game/GameGrid'
 
@@ -73,17 +72,6 @@ export default {
       cellResolution: 38,
       timerId: 0,
       timeoutSpeed: 600
-    }
-  },
-  computed: {
-    faTh() {
-      return faTh
-    },
-    faQuestion() {
-      return faQuestion
-    },
-    faPlay() {
-      return faPlay
     }
   },
   mounted() {

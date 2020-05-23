@@ -8,7 +8,7 @@
         @click="launchGridEvolution()"
       >
         <span class="icon">
-          <fa-icon class="fa-lg" :icon="faPlayCircle" />
+          <fa-icon class="fa-lg" :icon="['far', 'play-circle']"></fa-icon>
         </span>
         <span>Launch evolution</span>
       </button>
@@ -19,14 +19,14 @@
         @click="stopGridEvolution()"
       >
         <span class="icon">
-          <fa-icon class="fa-lg" :icon="faStopCircle" />
+          <fa-icon class="fa-lg" :icon="['far', 'stop-circle']"></fa-icon>
         </span>
         <span>Stop</span>
       </button>
 
       <button class="button is-info is-outlined" @click="nextGridEvolution()">
         <span class="icon">
-          <fa-icon :icon="faStepForward" />
+          <fa-icon :icon="['fas', 'step-forward']"></fa-icon>
         </span>
         <span>Next</span>
       </button>
@@ -36,7 +36,7 @@
         @click="slownDownGridEvolution()"
       >
         <span class="icon">
-          <fa-icon :icon="faAngleDoubleDown" />
+          <fa-icon :icon="['fas', 'angle-double-down']"></fa-icon>
         </span>
         <span>Slow down</span>
       </button>
@@ -46,7 +46,7 @@
         @click="speedUpGridEvolution()"
       >
         <span class="icon">
-          <fa-icon :icon="faAngleDoubleUp" />
+          <fa-icon :icon="['fas', 'angle-double-up']"></fa-icon>
         </span>
         <span>Speed up</span>
       </button>
@@ -59,20 +59,20 @@
         @click="editorMode()"
       >
         <span class="icon">
-          <fa-icon :icon="faEdit" />
+          <fa-icon :icon="['fas', 'edit']"></fa-icon>
         </span>
         <span>Editor Mode</span>
       </button>
 
       <button class="button is-link is-outlined" @click="randomizeGridState()">
         <span class="icon">
-          <fa-icon class="fa-lg" :icon="faDice" />
+          <fa-icon class="fa-lg" :icon="['fas', 'dice']"></fa-icon>
         </span>
         <span>Randomize state</span>
       </button>
       <button class="button is-danger" @click="clearGridState()">
         <span class="icon">
-          <fa-icon :icon="faTrashAlt" />
+          <fa-icon :icon="['fas', 'trash-alt']"></fa-icon>
         </span>
         <span>Clear the grid</span>
       </button>
@@ -81,15 +81,6 @@
 </template>
 
 <script>
-import {
-  faStepForward,
-  faAngleDoubleDown,
-  faAngleDoubleUp,
-  faEdit,
-  faDice,
-  faTrashAlt
-} from '@fortawesome/free-solid-svg-icons'
-import { faPlayCircle, faStopCircle } from '@fortawesome/free-regular-svg-icons'
 import { mapState } from 'vuex'
 
 export default {
@@ -136,30 +127,6 @@ export default {
     }
   },
   computed: {
-    faPlayCircle() {
-      return faPlayCircle
-    },
-    faStopCircle() {
-      return faStopCircle
-    },
-    faStepForward() {
-      return faStepForward
-    },
-    faAngleDoubleDown() {
-      return faAngleDoubleDown
-    },
-    faAngleDoubleUp() {
-      return faAngleDoubleUp
-    },
-    faEdit() {
-      return faEdit
-    },
-    faDice() {
-      return faDice
-    },
-    faTrashAlt() {
-      return faTrashAlt
-    },
     ...mapState({
       cellsGrid: (state) => state['cells-grid']
     })
@@ -220,6 +187,7 @@ export default {
     },
     clearGridState() {
       window.console.log('clear grid state')
+      this.stopGridEvolution()
       this.$store.dispatch('cells-grid/clearGridState')
     }
   }

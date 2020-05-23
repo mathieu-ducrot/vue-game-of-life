@@ -18,7 +18,7 @@ import {
   faExclamation
 } from '@fortawesome/free-solid-svg-icons'
 import { faPlayCircle, faStopCircle } from '@fortawesome/free-regular-svg-icons'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
 // This is important, we are going to let Nuxt.js worry about the CSS
 config.autoAddCss = false
@@ -41,7 +41,8 @@ library.add(
   faExclamation,
   faPlayCircle,
   faStopCircle,
-  faGithub
+  faGithub,
+  faLinkedin
 )
 
 // Register the component globally

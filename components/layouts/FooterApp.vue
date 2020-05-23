@@ -17,17 +17,29 @@
     </div>
     <div class="level-right">
       <div class="level-item">
-        <a
-          class="button is-link"
-          href="https://github.com/mathieu-ducrot/game-of-life"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="icon">
-            <fa-icon class="fa-lg" :icon="['fab', 'github']"></fa-icon>
-          </span>
-          <span>mathieu-ducrot</span>
-        </a>
+        <div class=" buttons">
+          <a
+            class="button is-link"
+            href="https://github.com/mathieu-ducrot/game-of-life"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="icon">
+              <fa-icon class="fa-lg" :icon="['fab', 'github']"></fa-icon>
+            </span>
+            <span>mathieu-ducrot</span>
+          </a>
+          <a
+            class="button is-link"
+            href="https://www.linkedin.com/in/mathieu-ducrot-sf-vue/"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="icon">
+              <fa-icon class="fa-lg" :icon="['fab', 'linkedin']"></fa-icon>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

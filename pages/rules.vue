@@ -13,7 +13,7 @@
               rel="noopener"
               class="has-text-primary"
             >
-              <span itemprop="name">Game of Life</span>
+              <strong><span itemprop="name">Game of Life</span></strong>
             </a>
             is a <strong>cellular automaton</strong> created by
             <a
@@ -25,8 +25,10 @@
               itemscope
               itemtype="https://schema.org/Person"
             >
-              <span itemprop="givenName">John Horton</span>
-              <span itemprop="familyName">Conway</span>
+              <strong>
+                <span itemprop="givenName">John Horton</span>
+                <span itemprop="familyName">Conway</span>
+              </strong>
             </a>
             in <span itemprop="dateCreated">1970</span>. <br />
             This simulation, which is not really a game, allows you to see the

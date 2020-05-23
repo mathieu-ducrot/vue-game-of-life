@@ -70,8 +70,7 @@ export default {
       cellsPerRow: 0,
       cellsPerColumn: 0,
       cellResolution: 38,
-      timerId: 0,
-      timeoutSpeed: 600
+      timerId: 0
     }
   },
   mounted() {
@@ -86,13 +85,16 @@ export default {
       cellsPerRow: this.cellsPerRow,
       cellsPerColumn: this.cellsPerColumn
     })
-    this.$store.dispatch('cells-grid/randomizeGridState')
+    this.$store.dispatch('cells-grid/loadRandomGridPattern')
     this.timerId = setTimeout(
       function tick() {
         this.$store.dispatch('cells-grid/nextGridState')
-        this.timerId = setTimeout(tick.bind(this), this.timeoutSpeed)
+        this.timerId = setTimeout(
+          tick.bind(this),
+          this.$store.state['cells-grid'].recommendedTimeoutSpeed
+        )
       }.bind(this),
-      this.timeoutSpeed
+      this.$store.state['cells-grid'].recommendedTimeoutSpeed
     )
   },
   beforeDestroy() {

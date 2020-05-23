@@ -2,6 +2,7 @@
   <div
     class="cell"
     :style="isAlive ? 'background-color: ' + aliveColor + ';' : ''"
+    :title="'(x: ' + xPosition + ', y: ' + yPosition + ')'"
     @mousedown="toggleCellState()"
   >
     <div class="overlay"></div>

@@ -59,6 +59,8 @@ export default {
   },
   data() {
     return {
+      /* To easaly test generated patterns on the home page with the editor, switch values to 50 and 22
+         if you have a 1920 resolution screen */
       cellsPerRow: 60,
       cellsPerColumn: 25,
       showCanvasErrorMessage: false

@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import CellsGridGenerationService from '@/services/CellsGridGenerationService.js'
+import gosperGliderGunPattern from '@/components/game/pattern/gosper_glider_gun.json'
+import stablePattern from '@/components/game/pattern/stable.json'
+import oscillatorsPattern from '@/components/game/pattern/oscillators.json'
+import spaceshipsPattern from '@/components/game/pattern/spaceships.json'
 
 export const state = () => ({
   cellsPerRow: 20,
@@ -9,7 +13,8 @@ export const state = () => ({
   nbCellBirth: 0,
   nbCellDeath: 0,
   tick: 0,
-  editorMode: false
+  editorMode: false,
+  recommendedTimeoutSpeed: 400
 })
 
 export const mutations = {
@@ -56,6 +61,17 @@ export const mutations = {
       Vue.set(state.currentGridState, xPosition, newRow)
       state.nbLivingCells++
     }
+  },
+  LOAD_GRID_PATTERN(state, pattern) {
+    pattern.positions.forEach(function(positions) {
+      if (
+        state.currentGridState[positions[0]] !== undefined &&
+        state.currentGridState[positions[0]][positions[1]] !== undefined
+      ) {
+        state.currentGridState[positions[0]][positions[1]] = 1
+      }
+    })
+    state.recommendedTimeoutSpeed = pattern.recommendedTimeoutSpeed
   }
 }
 
@@ -104,6 +120,26 @@ export const actions = {
   },
   toggleCellState({ commit }, positions) {
     commit('TOGGLE_CELL_STATE', positions)
+  },
+  loadRandomGridPattern({ state, dispatch, commit }) {
+    const patterns = ['random']
+    if (state.cellsPerRow >= 48 && state.cellsPerColumn >= 22) {
+      patterns.push(oscillatorsPattern)
+    }
+    if (state.cellsPerRow >= 36 && state.cellsPerColumn >= 14) {
+      patterns.push(gosperGliderGunPattern)
+    }
+    if (state.cellsPerRow >= 25 && state.cellsPerColumn >= 12) {
+      patterns.push(stablePattern)
+      patterns.push(spaceshipsPattern)
+    }
+
+    const randomPattern = patterns[Math.floor(Math.random() * patterns.length)]
+    if (randomPattern === 'random') {
+      dispatch('randomizeGridState')
+    } else {
+      commit('LOAD_GRID_PATTERN', randomPattern)
+    }
   }
 }
 
@@ -126,5 +162,16 @@ export const getters = {
   },
   getTick: (state) => {
     return state.tick
+  },
+  getLivingCellPositions: (state) => {
+    const toReturn = []
+    for (let x = 0; x < state.cellsPerRow; x++) {
+      for (let y = 0; y < state.cellsPerColumn; y++) {
+        if (state.currentGridState[x][y] === 1) {
+          toReturn.push([x, y])
+        }
+      }
+    }
+    return toReturn
   }
 }

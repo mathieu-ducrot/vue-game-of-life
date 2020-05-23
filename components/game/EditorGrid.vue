@@ -19,6 +19,8 @@
       </span>
       <span><b>Editor Mode :</b> Click on a cell to change his state.</span>
     </p>
+    <!-- Uncomment the follwing line when testing pattern -->
+    <!-- <div>{{ $store.getters['cells-grid/getLivingCellPositions'] }}</div>-->
   </div>
 </template>
 

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://game-of-life-in-vue-mathieu-ducrot.netlify.app/sitemap.xml

@@ -1,6 +1,6 @@
-import CellsGridGenerationService from '@/services/CellsGridGenerationService.js'
+import CellsGridGenerator from '@/game_engine/generator/CellsGridGenerator'
 
-describe('CellsGridGenerationService', () => {
+describe('CellsGridGenerator.getNbNeighbors', () => {
   test('getNbNeighbors from a cellsGrid with all 8 neighbors available', () => {
     const testCellsGrid = [
       [0, 1, 1],
@@ -14,9 +14,7 @@ describe('CellsGridGenerationService', () => {
        1 [0] 0
        1  0  0
      */
-    expect(
-      CellsGridGenerationService.getNbNeighbors(testCellsGrid, 1, 1)
-    ).toEqual(3)
+    expect(CellsGridGenerator.getNbNeighbors(testCellsGrid, 1, 1)).toEqual(3)
   })
 
   test('getNbNeighbors from a cellsGrid with an edge position', () => {
@@ -31,37 +29,32 @@ describe('CellsGridGenerationService', () => {
        1  0  0
        1  0  0
      */
-    expect(
-      CellsGridGenerationService.getNbNeighbors(testCellsGrid, 1, 0)
-    ).toEqual(1)
+    expect(CellsGridGenerator.getNbNeighbors(testCellsGrid, 1, 0)).toEqual(1)
 
     /* Assert nb neighbors on x edge
        0  1  0
       [1] 0  0
        1  0  0
      */
-    expect(
-      CellsGridGenerationService.getNbNeighbors(testCellsGrid, 0, 1)
-    ).toEqual(2)
+    expect(CellsGridGenerator.getNbNeighbors(testCellsGrid, 0, 1)).toEqual(2)
 
     /* Assert nb neighbors on x and y edge (min position and max position)
       [0] 1  0
        1  0  0
        1  0  0
      */
-    expect(
-      CellsGridGenerationService.getNbNeighbors(testCellsGrid, 0, 0)
-    ).toEqual(2)
+    expect(CellsGridGenerator.getNbNeighbors(testCellsGrid, 0, 0)).toEqual(2)
+
     /*
        0  1  0
        1  0  0
        1  0 [0]
      */
-    expect(
-      CellsGridGenerationService.getNbNeighbors(testCellsGrid, 2, 2)
-    ).toEqual(0)
+    expect(CellsGridGenerator.getNbNeighbors(testCellsGrid, 2, 2)).toEqual(0)
   })
+})
 
+describe('CellsGridGenerator.getNextGridGeneration', () => {
   test('getNextGridGeneration from cellsGrid', () => {
     const testCellsGrid = [
       [1, 1, 1],
@@ -74,9 +67,10 @@ describe('CellsGridGenerationService', () => {
        1  0  1
      */
 
-    const nextGridGeneration = CellsGridGenerationService.getNextGridGeneration(
+    const nextGridGeneration = CellsGridGenerator.getNextGridGeneration(
       testCellsGrid
     )
+
     /* Assert nextGridGeneration with the evolution rules being applied (render version)
        1  1  0
        0  0  1
@@ -92,8 +86,10 @@ describe('CellsGridGenerationService', () => {
       [0, 1, 0]
     ])
     expect(nextGridGeneration.counters.nbLivingCells).toEqual(4)
+
     // Asset Birth (1 from position 2,1)
     expect(nextGridGeneration.counters.nbCellBirth).toEqual(1)
+
     // Asset Death (3 from positions 0,1 position 1,1 and 2,2)
     expect(nextGridGeneration.counters.nbCellDeath).toEqual(3)
   })

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import CellsGridGenerationService from '@/services/CellsGridGenerationService.js'
+import CellsGridGenerator from '@/game_engine/generator/CellsGridGenerator'
 import gosperGliderGunPattern from '@/components/game/pattern/gosper_glider_gun.json'
 import stablePattern from '@/components/game/pattern/stable.json'
 import oscillatorsPattern from '@/components/game/pattern/oscillators.json'
@@ -82,7 +82,7 @@ export const actions = {
     dispatch('clearGridState')
   },
   randomizeGridState({ commit, state }) {
-    const randomizeGrid = CellsGridGenerationService.getRandomizedGrid(
+    const randomizeGrid = CellsGridGenerator.getRandomizedGrid(
       state.cellsPerRow,
       state.cellsPerColumn
     )
@@ -92,7 +92,7 @@ export const actions = {
     commit('INIT_COUNTER')
   },
   clearGridState({ commit, state }) {
-    const emptyGrid = CellsGridGenerationService.getEmptyGrid(
+    const emptyGrid = CellsGridGenerator.getEmptyGrid(
       state.cellsPerRow,
       state.cellsPerColumn
     )
@@ -102,7 +102,7 @@ export const actions = {
     commit('INIT_COUNTER')
   },
   nextGridState({ commit, state }) {
-    const nextGrid = CellsGridGenerationService.getNextGridGeneration(
+    const nextGrid = CellsGridGenerator.getNextGridGeneration(
       state.currentGridState
     )
 

@@ -20,7 +20,7 @@
         <div class=" buttons">
           <a
             class="button is-link"
-            href="https://github.com/mathieu-ducrot/game-of-life"
+            href="https://github.com/mathieu-ducrot/vue-game-of-life"
             target="_blank"
             rel="noopener"
           >

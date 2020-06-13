@@ -1,5 +1,5 @@
 {
-  "name": "game-of-life",
+  "name": "vue-game-of-life",
   "version": "1.0.0",
   "description": "My attempt for creating the game of life from John Conway with Vue.js",
   "author": "Mathieu Ducrot",
